@@ -15,24 +15,19 @@ public class button_panel extends JPanel_with_MouseListener {
 			this.panel_h = fram_h;
 			init_panel_setting();
 			init_every_button();
-			this.removeAll(); 
-			init_every_button();
 	}
 	private void init_panel_setting()
 	{
 		
-			this.setBackground(Color.yellow);
+			this.setBackground(Color.RED);
 			this.setSize(new Dimension(this.panel_w, this.panel_h));
-			
 	}
 	private void init_every_button()
 	{
-		//buttons = new button_graphic[this.total_button_num];
 			for(int index = 0; index < this.total_button_num; index ++) {
 				load_image_and_set_x_and_y(this.button_group,index);
 				add_mouse_listener(this.button_group,index,this.total_button_num);
 				this.add( this.button_group.group[index].picLabel );
-				
 			}
 	}
 	private void load_image_and_set_x_and_y(buttons button_group,int index)
@@ -53,20 +48,15 @@ public class button_panel extends JPanel_with_MouseListener {
 	
 				public void mouseClicked(MouseEvent arg0) {
 				}
-	
 				public void mouseExited(MouseEvent arg0) {
 				}
-	
 				public void mouseEntered(MouseEvent arg0) {
 				}
-	
 				public void mousePressed(MouseEvent arg0) {
 					button_group.button_clicked(chosen_idx);
 				}
-	
 				public void mouseReleased(MouseEvent arg0) {
 				}
-				
 			});
 		}
 		

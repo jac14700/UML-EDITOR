@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 public class graphic_to_panel{
 	protected int x , y;
 	protected int layer_order;
@@ -18,5 +17,4 @@ public class graphic_to_panel{
 		this.x = x;
 		this.y = y;
 	}
-
 }

@@ -11,6 +11,7 @@ public class buttons extends button_graphic{
 	{
 		this.group = new button_graphic[this.total_buttons];
 	}
+	
 	private void set_choosen(int button_index)
 	{
 		this.idx_which_is_chosen = button_index;
@@ -38,6 +39,8 @@ public class buttons extends button_graphic{
 		this.group[this.idx_which_to_unchoose].update_parmeters();
 		this.group[this.idx_which_to_unchoose].picLabel.repaint();
 	}
+	
+	
 	public void button_clicked(int button_index)
 	{
 		if( this.idx_which_is_chosen == no_action)
@@ -53,15 +56,5 @@ public class buttons extends button_graphic{
 			set_unchoosen();
 			set_choosen(button_index);
 		}
-
-
-	}
-		
-	public void unselected_unchosen_buttons(int button_index)
-	{
-		this.selected = false;
-		this.set_path(Parameters.img_directory_unchosen);
-		update_parmeters();
-		this.picLabel.repaint();
 	}
 }

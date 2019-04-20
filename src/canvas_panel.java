@@ -5,5 +5,6 @@ public class canvas_panel extends JPanel_with_MouseListener {
 	public canvas_panel(int fram_w,int fram_h) {
 			this.panel_w = fram_w - button_panel.panel_w;
 			this.panel_h = fram_h;
+			
 	}
 }

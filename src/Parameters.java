@@ -1,4 +1,3 @@
-
 public class Parameters {
 	
 	public static String img_directory_chosen = "C:\\Users\\user\\source\\eclipse\\UML-EDITOR\\images\\chosen\\";
