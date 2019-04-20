@@ -11,8 +11,8 @@ public class Drawing extends JFrame {
 	private static int fram_w = 1000, fram_h = 700;
 	public Drawing(){
 			JFrame frame = new JFrame("twing - twing doodling");
-			JPanel canvas = new JPanel();
-			button_panel b_panel = new button_panel(fram_w);
+			button_panel b_panel = new button_panel(fram_h);
+			canvas_panel canvas = new canvas_panel(fram_w, fram_h);
 			frame.pack();
 			frame.setSize(fram_w, fram_h);
 			

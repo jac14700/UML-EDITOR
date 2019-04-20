@@ -6,13 +6,13 @@ import java.awt.event.*;
 public class button_panel extends JPanel_with_MouseListener {
 
 	private int total_button_num = 6;
-	private int width_size = 150;
-	private int frame_w;
+	public static int panel_w = 150;
+	private int panel_h;
 	private int insets_h = 100;
 	private buttons button_group = new buttons();
 	
-	public button_panel(int frame_w) {
-			this.frame_w = frame_w;
+	public button_panel(int fram_h) {
+			this.panel_w = fram_h;
 			init_panel_setting();
 			init_every_button();
 			this.removeAll(); 
@@ -22,7 +22,7 @@ public class button_panel extends JPanel_with_MouseListener {
 	{
 		
 			this.setBackground(Color.yellow);
-			this.setSize(new Dimension(width_size, width_size+this.frame_w));
+			this.setSize(new Dimension(this.panel_w, this.panel_h));
 			
 	}
 	private void init_every_button()
