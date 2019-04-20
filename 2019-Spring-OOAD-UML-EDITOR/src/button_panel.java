@@ -1,0 +1,73 @@
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.*;
+
+public class button_panel extends JPanel_with_MouseListener {
+
+	private int total_button_num = 6;
+	private int width_size = 150;
+	private int frame_w;
+	private int insets_h = 100;
+	private buttons button_group = new buttons();
+	
+	public button_panel(int frame_w) {
+			this.frame_w = frame_w;
+			init_panel_setting();
+			init_every_button();
+			this.removeAll(); 
+			init_every_button();
+	}
+	private void init_panel_setting()
+	{
+		
+			this.setBackground(Color.yellow);
+			this.setSize(new Dimension(width_size, width_size+this.frame_w));
+			
+	}
+	private void init_every_button()
+	{
+		//buttons = new button_graphic[this.total_button_num];
+			for(int index = 0; index < this.total_button_num; index ++) {
+				load_image_and_set_x_and_y(this.button_group,index);
+				add_mouse_listener(this.button_group,index,this.total_button_num);
+				this.add( this.button_group.group[index].picLabel );
+				
+			}
+	}
+	private void load_image_and_set_x_and_y(buttons button_group,int index)
+	{
+		System.out.println(Parameters.file_names_of_buttons[index]);
+		this.button_group.group[index] = new button_graphic();
+		int x = insets_h * (index-1);
+		int y = insets_h;
+		this.button_group.group[index].set_parameters(x,
+													  y,
+													  Parameters.img_directory_unchosen,
+													  Parameters.file_names_of_buttons[index]);
+	}
+	private void add_mouse_listener(buttons button_group, int chosen_idx, int total_button_num) 
+	{
+		this.button_group.group[chosen_idx].picLabel.addMouseListener(
+			new MouseListener() {
+	
+				public void mouseClicked(MouseEvent arg0) {
+				}
+	
+				public void mouseExited(MouseEvent arg0) {
+				}
+	
+				public void mouseEntered(MouseEvent arg0) {
+				}
+	
+				public void mousePressed(MouseEvent arg0) {
+					button_group.button_clicked(chosen_idx);
+				}
+	
+				public void mouseReleased(MouseEvent arg0) {
+				}
+				
+			});
+		}
+		
+}
