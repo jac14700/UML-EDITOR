@@ -17,10 +17,9 @@ public class button_graphic extends graphic_to_panel{
 	protected ImageIcon icon;
 	protected Boolean selected;
 	
-
 	button_graphic(){}
 	
-	public void set_parameters(int x , int y, String path, String file_name)
+	protected void set_parameters(int x , int y, String path, String file_name)
 	{
 			this.x = x;
 			this.y = y;
@@ -28,22 +27,10 @@ public class button_graphic extends graphic_to_panel{
 			this.file_name = file_name;
 			init();
 	}
-	public void set_path(String path)
+	protected void set_path(String path)
 	{
 		this.path = path;
 	}
-	
-	public void set_file_name(String file_name)
-	{
-		this.file_name = file_name;
-	}
-	
-	public void set_ImageIcon(BufferedImage img)
-	{
-		this.icon = new ImageIcon(img);
-	}
-	
-	
 	
 	private void read_img(String path)
 	{
@@ -69,7 +56,5 @@ public class button_graphic extends graphic_to_panel{
 		read_img(this.path);
 		this.icon = new ImageIcon(this.myPicture);
 		this.picLabel = new JLabel(this.icon);
-		
 	}
-	
 }

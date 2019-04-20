@@ -9,9 +9,7 @@ import javax.swing.JPanel;
 public class graphic_to_panel{
 	protected int x , y;
 	protected int layer_order;
-	graphic_to_panel()
-	{
-	}
+	graphic_to_panel(){}
 	graphic_to_panel(int x, int y)
 	{
 		this.x = x;
