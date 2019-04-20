@@ -13,17 +13,20 @@ public class menu_bar {
 		 edit = new JMenu("Edit Menu");
 		 group = new JMenuItem("Group");
 		 ungroup = new JMenuItem("UnGroup");
-		 change_obj_name = new JMenuItem("change object name");
+		 init_change_obj_name();
+		 		 
+		 edit.add(group);
+		 edit.add(ungroup);
+		 edit.add(change_obj_name);
+		 menu_bar.add(edit);
+	}
+	private void init_change_obj_name()
+	{
+		change_obj_name = new JMenuItem("change object name");
 		 change_obj_name.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 			 JOptionPane.showMessageDialog(null,"Hi");
 			};
 		 });
-		 
-		 
-		 edit.add(group);
-		 edit.add(ungroup);
-		 edit.add(change_obj_name);
-		 menu_bar.add(edit);
 	}
 }
