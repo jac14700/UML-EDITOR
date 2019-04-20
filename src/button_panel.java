@@ -12,7 +12,7 @@ public class button_panel extends JPanel_with_MouseListener {
 	private buttons button_group = new buttons();
 	
 	public button_panel(int fram_h) {
-			this.panel_w = fram_h;
+			this.panel_h = fram_h;
 			init_panel_setting();
 			init_every_button();
 			this.removeAll(); 
