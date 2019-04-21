@@ -11,7 +11,7 @@ public class mode_class implements mode {
 	public void mouseExited(MouseEvent arg0){};
 	public void mouseEntered(MouseEvent arg0){};
 	public void mousePressed(MouseEvent arg0){
-		this.tmp_obj = new BasicObject(arg0.getPoint());
+		this.tmp_obj = new DrawClass(arg0.getPoint());
 		this.canvas.add(this.tmp_obj.label);
 		this.canvas.repaint();
 	};
