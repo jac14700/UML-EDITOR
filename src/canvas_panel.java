@@ -7,13 +7,12 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private int panel_w;
 	private int panel_h;
 	private int current_mode;
-	private BasicObject pie,apple;
+	private BasicObject pie,apple,tmp;
 
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
-		pie = new BasicObject(10,100);
-		pie.label.setLocation(new Point(10,10));
-		apple = new BasicObject(120,200);
+		pie = new BasicObject(new Point(10,100));
+		apple = new BasicObject(new Point(120,200));
 		this.add(apple.label);
 		this.add(pie.label);
 	}
@@ -29,7 +28,10 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		this.addMouseMotionListener(this);
 	}
 	 public void mouseClicked(MouseEvent event) {
+		 	this.tmp = new BasicObject(event.getPoint());
+		 	this.add(tmp.label);
 	        System.out.println("mouseClicked()");
+	        this.repaint();
 	    }
 
 }
