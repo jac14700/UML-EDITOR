@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.*;
 
-public class button_panel extends JPanel_with_MouseListener {
+public class button_panel extends JPanel_Listener_MotionListener_Mouse {
 
 	private int total_button_num = 6;
 	public static int panel_w = 150;
