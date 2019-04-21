@@ -1,9 +1,7 @@
-
-
 public class buttons extends button_graphic{
 	private int total_buttons = 6;
 	private int no_action = -1;
-	private int idx_which_is_chosen = no_action;
+	public int idx_which_is_chosen = no_action;
 	private int idx_which_to_unchoose;
 	public button_graphic [] group;
 	

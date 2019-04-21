@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.*;
@@ -25,20 +24,15 @@ public class button_panel extends JPanel_with_MouseListener {
 	private void init_every_button()
 	{
 			for(int index = 0; index < this.total_button_num; index ++) {
-				load_image_and_set_x_and_y(this.button_group,index);
-				add_mouse_listener(this.button_group,index,this.total_button_num);
+				load_image_and_set_x_and_y(this.button_group ,index );
+				add_mouse_listener(this.button_group ,index ,this.total_button_num );
 				this.add( this.button_group.group[index].picLabel );
 			}
 	}
 	private void load_image_and_set_x_and_y(buttons button_group,int index)
 	{
-		System.out.println(Parameters.file_names_of_buttons[index]);
 		this.button_group.group[index] = new button_graphic();
-		int x = insets_h * (index-1);
-		int y = insets_h;
-		this.button_group.group[index].set_parameters(x,
-													  y,
-													  Parameters.img_directory_unchosen,
+		this.button_group.group[index].set_parameters(Parameters.img_directory_unchosen,
 													  Parameters.file_names_of_buttons[index]);
 	}
 	private void add_mouse_listener(buttons button_group, int chosen_idx, int total_button_num) 

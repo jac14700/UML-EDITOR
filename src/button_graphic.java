@@ -1,16 +1,10 @@
-
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.*;
 
-import java.awt.*;
-
-public class button_graphic extends graphic_to_panel{
+public class button_graphic {
 	private String path, file_name;
 	protected BufferedImage myPicture;
 	protected JLabel picLabel;
@@ -19,10 +13,8 @@ public class button_graphic extends graphic_to_panel{
 	
 	button_graphic(){}
 	
-	protected void set_parameters(int x , int y, String path, String file_name)
+	protected void set_parameters(String path, String file_name)
 	{
-			this.x = x;
-			this.y = y;
 			this.path = path;
 			this.file_name = file_name;
 			init();

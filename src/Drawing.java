@@ -14,16 +14,16 @@ public class Drawing extends JFrame {
 			button_panel b_panel = new button_panel(fram_h);
 			canvas_panel canvas = new canvas_panel(fram_w, fram_h);
 			menu_bar bar = new menu_bar();
+			
 			frame.pack();
 			frame.setSize(fram_w, fram_h);
-			
 			frame.setLocationRelativeTo(null);
 			frame.setLayout(null);
 
 			frame.getContentPane().add(canvas, BorderLayout.CENTER);
 			frame.getContentPane().add(b_panel, BorderLayout.WEST);
-			
 			frame.setJMenuBar(bar.menu_bar);
+			
 		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    frame.setVisible(true);
 	}

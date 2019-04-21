@@ -1,18 +1,18 @@
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-public class graphic_to_panel{
-	protected int x , y;
+
+abstract class Graphic_to_c_panel extends JPanel{
+	private static final long serialVersionUID = 1L;
+	protected int start_x , start_y ,end_x ,end_y;
 	protected int layer_order;
-	graphic_to_panel(){}
-	graphic_to_panel(int x, int y)
+	Graphic_to_c_panel(){}
+	Graphic_to_c_panel(int x, int y)
 	{
-		this.x = x;
-		this.y = y;
-	}
+		setStartPoint(x,y);
+    }
+    private void setStartPoint(int x, int y) {
+        this.start_x = x;
+        this.start_y = y;
+    }
+    protected abstract void draw();
+    protected abstract void moveTo(int newX, int newY);
 }
