@@ -17,7 +17,6 @@ public class button_panel extends JPanel_with_MouseListener {
 	}
 	private void init_panel_setting()
 	{
-		
 			this.setBackground(Color.RED);
 			this.setSize(new Dimension(this.panel_w, this.panel_h));
 	}
@@ -52,6 +51,5 @@ public class button_panel extends JPanel_with_MouseListener {
 				public void mouseReleased(MouseEvent arg0) {
 				}
 			});
-		}
-		
+		}	
 }

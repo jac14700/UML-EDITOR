@@ -19,10 +19,7 @@ public class button_graphic {
 			this.file_name = file_name;
 			init();
 	}
-	protected void set_path(String path)
-	{
-		this.path = path;
-	}
+	protected void set_path(String path){this.path = path;}
 	
 	private void read_img(String path)
 	{

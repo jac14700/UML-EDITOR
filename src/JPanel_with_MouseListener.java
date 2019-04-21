@@ -3,7 +3,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 public class JPanel_with_MouseListener extends JPanel implements MouseListener {
-
+	
 	public void mouseClicked(MouseEvent arg0) {
 	}
 
