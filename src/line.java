@@ -1,4 +1,4 @@
-public class line extends Graphic_to_c_panel {
+public class line extends BasicObject {
 	protected void draw() {};
     protected void moveTo(int newX, int newY){};
 }
