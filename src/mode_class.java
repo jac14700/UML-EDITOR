@@ -1,7 +1,7 @@
 import java.awt.event.MouseEvent;
 
 public class mode_class implements mode {
-	private BasicObject tmp_obj;
+	private ObjectsContainer tmp_obj;
 	private canvas_panel canvas;
 	public mode_class(canvas_panel canvas)
 	{
@@ -11,7 +11,7 @@ public class mode_class implements mode {
 	public void mouseExited(MouseEvent arg0){};
 	public void mouseEntered(MouseEvent arg0){};
 	public void mousePressed(MouseEvent arg0){
-		this.tmp_obj = new DrawClass(arg0.getPoint());
+		this.tmp_obj = new DrawClass(arg0.getPoint(),this.tmp_obj);
 		this.canvas.add(this.tmp_obj.label);
 		this.canvas.repaint();
 	};

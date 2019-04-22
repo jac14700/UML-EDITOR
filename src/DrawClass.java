@@ -6,7 +6,7 @@ import javax.swing.border.Border;
 
 public class DrawClass extends ObjectsContainer{
 	
-	DrawClass(Point start){
+	DrawClass(Point start,ObjectsContainer first_stuff){
 		this.setStartPoint(start);
 		this.label = new JLabel();
 		this.label.setOpaque(true);

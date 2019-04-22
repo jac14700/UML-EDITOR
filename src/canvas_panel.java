@@ -7,30 +7,28 @@ import java.util.ArrayList;
 public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private int panel_w;
 	private int panel_h;
-	private ArrayList<ObjectsContainer> group;
-	private ObjectsContainer pie,apple;
+	private ObjectsContainer pie,apple,apple2,pie2;
 	private mode user_mode = new mode_no_action();
-
+	private ObjectsContainer temp,temp2;
+	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
-		pie = new DrawClass(new Point(10,100));
-		apple = new DrawClass(new Point(120,200));
-		group = new ArrayList<ObjectsContainer>();
-		group.add(pie);
-		group.add(apple);
+		pie = new DrawClass(new Point(10,100),pie);
+		apple = new DrawClass(new Point(120,200),apple);
+
+		pie2 = new DrawClass(new Point(50,100),pie2);
+		apple2 = new DrawClass(new Point(520,200),apple2);
+		/*temp = new ObjectsContainer();
+		temp.add(apple);
+		temp.add(pie);
+		temp2 = new ObjectsContainer();
+		temp2.add(apple2);
+		temp2.add(pie2);*/
+		//System.out.println(temp.group);
 		this.add(apple.label);
 		this.add(pie.label);
-		moveto();
 	}
-	private void moveto() 
-	{
-		for(ObjectsContainer temp : this.group)
-		{
-			temp.start.x = temp.start.x +500;
-			temp.label.setLocation(temp.start);
-		}
-		this.repaint();
-	}
+	
 	private void init_every_setting(int frame_w,int frame_h)
 	{
 		this.panel_w = frame_w - button_panel.panel_w;
@@ -48,6 +46,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	 }
 	 private void get_mode(int mode_type,MouseEvent event,canvas_panel canvas)
 	 {
+		 if(event.getButton()== MouseEvent.BUTTON1)
 		 switch(mode_type) {
 		 	case -1:
 		 		user_mode = new mode_no_action();
