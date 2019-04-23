@@ -18,6 +18,7 @@ public class mode_class implements mode {
 	public void mouseExited(MouseEvent arg0){};
 	public void mouseEntered(MouseEvent arg0){};
 	public void mousePressed(MouseEvent arg0){
+		System.out.println("Y");
 		all_objs.add(new DrawClass(arg0.getPoint()));
 		this.canvas.add(all_objs.get(all_objs.size()-1).main_label);
 		this.canvas.repaint();

@@ -39,7 +39,6 @@ class BasicObject extends JPanel{
 			public void mouseExited(MouseEvent arg0) {
 			}
 			public void mouseEntered(MouseEvent arg0) {
-				System.out.println("in mouseEntered");
 			}
 			public void mousePressed(MouseEvent arg0) {
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal())
