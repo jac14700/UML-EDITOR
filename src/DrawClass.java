@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 public class DrawClass extends BasicObject{
-	
+	private String  name = "a";
 	DrawClass(Point start){
 		this.setStartPoint(start);
 		this.label = new JLabel();
@@ -18,7 +18,8 @@ public class DrawClass extends BasicObject{
 	    gbc.weighty = 1;
 	    Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 	    this.label.setBorder(border);
-	    this.message = new JLabel("Go that way!");
+	    
+	    this.message.setText(name);
 	    this.message.setVerticalAlignment(JLabel.TOP);        
 	    this.label.add(message, gbc);
 	    this.size=new Dimension(100, 100);

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
@@ -14,11 +15,19 @@ class BasicObject extends JPanel{
 	protected Point start,end;
 	protected int layer_order;
 	public JLabel label;
-	protected JLabel message;
+	protected JLabel message= new JLabel();
 	protected Dimension size;
+	protected Boolean selected = false;
+	
 	BasicObject(){}
 	BasicObject(Point start){}
     protected void setStartPoint(Point start) {
     	this.start = start;
+    }
+    public void paint(Graphics g)
+    {
+    	super.paint(g);
+    	g.setColor(Color.RED);
+    	g.drawRect(this.start.x, this.start.y, 100, 100);
     }
 }
