@@ -1,8 +1,10 @@
+import java.awt.Point;
+
 public class Parameters {
 	
 	public static String img_directory_chosen = "C:\\Users\\user\\source\\eclipse\\UML-EDITOR\\images\\chosen\\";
 	public static String img_directory_unchosen = "C:\\Users\\user\\source\\eclipse\\UML-EDITOR\\images\\unchosen\\";
-	
+	public static Point temp_for_mode_mouse_start_p = new Point(0,0);
 	public static String[] file_names_of_buttons= 
 		{
 			"select.png",

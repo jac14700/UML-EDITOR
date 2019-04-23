@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 public class mode_mouse extends JPanel  implements mode {
 	
 	private int mode = Parameters.Button.mouse.ordinal();
+	private int x,y;
 	public Point start_p, tmp = new Point(0,0), end_p = new Point(0,0);
 	private MouseEvent press;
 	private canvas_panel canvas;
@@ -23,14 +24,12 @@ public class mode_mouse extends JPanel  implements mode {
 	public void mouseExited(MouseEvent event){};
 	public void mouseEntered(MouseEvent event){};	
 	public void mousePressed(MouseEvent event){
-		this.press = event;
-		System.out.println(event.getPoint());	
-		this.start_p = new Point(event.getPoint());
+		Parameters.temp_for_mode_mouse_start_p = event.getPoint();
 		this.tmp = event.getPoint();
 		canvas_panel.unselect_all_obj();
 	};
 	public void mouseReleased(MouseEvent event){
-		
+		this.start_p = Parameters.temp_for_mode_mouse_start_p;
 		this.end_p = event.getPoint();
 		select_by_block();		
 		//this.start_p = null;
@@ -49,6 +48,7 @@ public class mode_mouse extends JPanel  implements mode {
 	private void select_by_block(){
 		adjust_start_end_pointer();
 		selecting_obj_in_the_block();
+		chosen_objs_repaint();
 	}
 	private void adjust_start_end_pointer(){
 		int left_x = Math.min(this.start_p.x,this.end_p.x);
@@ -59,10 +59,9 @@ public class mode_mouse extends JPanel  implements mode {
 		this.end_p= new Point(right_x,button_x);
 	}
 	private void selecting_obj_in_the_block(){
-		
-
-	    System.out.println(this.canvas.all_objs_in_canvas.size());
 		this.canvas.chosen_objs.clear();
+	    System.out.println(this.x);
+	    
 		for(int index = 0; index < this.canvas.all_objs_in_canvas.size(); index++) {
 			BasicObject tmp = this.canvas.all_objs_in_canvas.get(index);
 			if(tmp.start.x >this.start_p.x&&
@@ -70,9 +69,13 @@ public class mode_mouse extends JPanel  implements mode {
 			   tmp.end.x <this.end_p.x&&
 			   tmp.end.y <this.end_p.y) {
 			    this.canvas.chosen_objs.add(tmp);
-			    System.out.println(index);
-			    this.canvas.chosen_objs.get(index).main_label.select_this_object();
 			}
+		}
+	}
+	private void chosen_objs_repaint()
+	{
+		for(int index = 0; index < this.canvas.chosen_objs.size(); index++) {
+			this.canvas.chosen_objs.get(index).main_label.select_this_object();
 		}
 	}
 }
