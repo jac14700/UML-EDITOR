@@ -7,26 +7,29 @@ import java.util.ArrayList;
 public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private int panel_w;
 	private int panel_h;
-	private ObjectsContainer pie,apple,apple2,pie2;
+	private BasicObject pie,apple,apple2,pie2;
+	private ArrayList<ObjectsContainer> array_of_containers;
+	private ObjectsContainer group;
+	private ArrayList<BasicObject> all_objs = new ArrayList<BasicObject>(),
+								   chosen_objs =  new ArrayList<BasicObject>();
 	private mode user_mode = new mode_no_action();
-	private ObjectsContainer temp,temp2;
 	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
-		pie = new DrawClass(new Point(10,100),pie);
-		apple = new DrawClass(new Point(120,200),apple);
-
-		pie2 = new DrawClass(new Point(50,100),pie2);
-		apple2 = new DrawClass(new Point(520,200),apple2);
-		/*temp = new ObjectsContainer();
-		temp.add(apple);
-		temp.add(pie);
-		temp2 = new ObjectsContainer();
-		temp2.add(apple2);
-		temp2.add(pie2);*/
-		//System.out.println(temp.group);
-		this.add(apple.label);
-		this.add(pie.label);
+		pie = new DrawClass(new Point(10,100));
+		apple = new DrawClass(new Point(120,200));
+		pie2 = new DrawClass(new Point(50,100));
+		apple2 = new DrawClass(new Point(520,200));
+		
+		
+		
+		//group ªº¤u§@
+		chosen_objs.add(apple);
+		chosen_objs.add(pie);
+		group = new ObjectsContainer(new ArrayList<BasicObject>(chosen_objs));
+		
+		this.add(group.current_array.get(1).label);
+		this.add(group.current_array.get(0).label);
 	}
 	
 	private void init_every_setting(int frame_w,int frame_h)
@@ -40,7 +43,6 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
-	
 	 public void mousePressed(MouseEvent event) {
 		get_mode(buttons.idx_which_is_chosen,event,this);
 	 }

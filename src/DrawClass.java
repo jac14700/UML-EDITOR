@@ -4,9 +4,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-public class DrawClass extends ObjectsContainer{
+public class DrawClass extends BasicObject{
 	
-	DrawClass(Point start,ObjectsContainer first_stuff){
+	DrawClass(Point start){
 		this.setStartPoint(start);
 		this.label = new JLabel();
 		this.label.setOpaque(true);

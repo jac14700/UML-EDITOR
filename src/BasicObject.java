@@ -17,11 +17,7 @@ class BasicObject extends JPanel{
 	protected JLabel message;
 	protected Dimension size;
 	BasicObject(){}
-	BasicObject(Point start)
-	{
-		
-		
-    }
+	BasicObject(Point start){}
     protected void setStartPoint(Point start) {
     	this.start = start;
     }
