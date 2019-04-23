@@ -12,4 +12,14 @@ public class Parameters {
 		    "class.png",
 		    "usecase.png"
 		};
+	
+	public static int Button_no_action = -1;
+	public enum Button {
+		mouse,
+		association_line,
+		gerneralization_line,
+		composition_line, 
+		draw_class, 
+		user_case;	
+	}
 }

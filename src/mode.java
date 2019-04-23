@@ -8,5 +8,5 @@ public interface mode {
 	abstract void mouseReleased(MouseEvent arg0);
 	abstract void mouseDragged(MouseEvent e); 
 	abstract void mouseMoved(MouseEvent e);
-	abstract String getMode();
+	abstract int getMode();
 }

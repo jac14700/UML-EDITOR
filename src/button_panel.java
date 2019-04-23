@@ -4,10 +4,10 @@ import java.awt.event.*;
 
 public class button_panel extends JPanel_Listener_MotionListener_Mouse {
 
+	private static final long serialVersionUID = 1L;
 	private int total_button_num = 6;
 	public static int panel_w = 150;
 	private int panel_h;
-	private int insets_h = 100;
 	private buttons button_group = new buttons();
 	
 	public button_panel(int fram_h) {
@@ -15,10 +15,13 @@ public class button_panel extends JPanel_Listener_MotionListener_Mouse {
 			init_panel_setting();
 			init_every_button();
 	}
+	
+	
+	
 	private void init_panel_setting()
 	{
 			this.setBackground(Color.RED);
-			this.setSize(new Dimension(this.panel_w, this.panel_h));
+			this.setSize(new Dimension(button_panel.panel_w, this.panel_h));
 	}
 	private void init_every_button()
 	{
@@ -28,12 +31,17 @@ public class button_panel extends JPanel_Listener_MotionListener_Mouse {
 				this.add( this.button_group.group[index].picLabel );
 			}
 	}
+	
+	
+	
+	
 	private void load_image_and_set_x_and_y(buttons button_group,int index)
 	{
 		this.button_group.group[index] = new button_graphic();
 		this.button_group.group[index].set_parameters(Parameters.img_directory_unchosen,
 													  Parameters.file_names_of_buttons[index]);
 	}
+	
 	private void add_mouse_listener(buttons button_group, int chosen_idx, int total_button_num) 
 	{
 		this.button_group.group[chosen_idx].picLabel.addMouseListener(

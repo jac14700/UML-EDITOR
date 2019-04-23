@@ -10,27 +10,27 @@ public class buttons extends button_graphic{
 		this.group = new button_graphic[this.total_buttons];
 	}
 	
-	private void set_choosen(int button_index)
+	private void set_chosen(int button_index)
 	{
-		this.idx_which_is_chosen = button_index;
-		this.group[this.idx_which_is_chosen].selected = true;
-		this.group[this.idx_which_is_chosen].set_path(Parameters.img_directory_chosen);
-		this.group[this.idx_which_is_chosen].update_parmeters();
-		this.group[this.idx_which_is_chosen].picLabel.repaint();
+		buttons.idx_which_is_chosen = button_index;
+		this.group[buttons.idx_which_is_chosen].selected = true;
+		this.group[buttons.idx_which_is_chosen].set_path(Parameters.img_directory_chosen);
+		this.group[buttons.idx_which_is_chosen].update_parmeters();
+		this.group[buttons.idx_which_is_chosen].picLabel.repaint();
 	}
-	private void cancel_choosen(int button_index)
+	private void cancel_chosen(int button_index)
 	{
 		this.idx_which_to_unchoose = button_index;
-		this.idx_which_is_chosen = no_action;
+		buttons.idx_which_is_chosen = no_action;
 		this.group[this.idx_which_to_unchoose].selected = false;
 		this.group[this.idx_which_to_unchoose].set_path(Parameters.img_directory_unchosen);
 		this.group[this.idx_which_to_unchoose].update_parmeters();
 		this.group[this.idx_which_to_unchoose].update_parmeters();
 		this.group[this.idx_which_to_unchoose].picLabel.repaint();
 	}
-	private void set_unchoosen()
+	private void set_unchosen()
 	{
-		this.idx_which_to_unchoose = this.idx_which_is_chosen;
+		this.idx_which_to_unchoose = buttons.idx_which_is_chosen;
 		this.group[this.idx_which_to_unchoose].selected = false;
 		this.group[this.idx_which_to_unchoose].set_path(Parameters.img_directory_unchosen);
 		this.group[this.idx_which_to_unchoose].update_parmeters();
@@ -41,18 +41,18 @@ public class buttons extends button_graphic{
 	
 	public void button_clicked(int button_index)
 	{
-		if( this.idx_which_is_chosen == no_action)
+		if( buttons.idx_which_is_chosen == no_action)
 		{
-			set_choosen(button_index);
+			set_chosen(button_index);
 		}
-		else if(this.idx_which_is_chosen  ==  button_index)
+		else if(buttons.idx_which_is_chosen  ==  button_index)
 		{
-			System.out.println("cancel_choosen");
-			cancel_choosen(button_index);
+			System.out.println("cancel_chosen");
+			cancel_chosen(button_index);
 
 		}else {
-			set_unchoosen();
-			set_choosen(button_index);
+			set_unchosen();
+			set_chosen(button_index);
 		}
 	}
 }
