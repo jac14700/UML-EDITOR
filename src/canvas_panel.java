@@ -15,7 +15,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private Point pointStart = null;
 	private Point pointEnd   = null;
 	
-	private BasicObject pie,apple;
+	private BasicObject pie,apple,banana;
 	private ArrayList<ObjectsContainer> array_of_containers;
 	private ObjectsContainer group;
 	public static ArrayList<BasicObject> all_objs_in_canvas = new ArrayList<BasicObject>();
@@ -28,22 +28,26 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		init_every_setting(frame_w,frame_h);
 		pie = new DrawClass(new Point(10,100));
 		this.apple = new DrawClass(new Point(120,200));	
-		
+		banana = new DrawClass(new Point(320,500)); 
 		
 		//group ªº¤u§@
 		this.chosen_objs.add(apple);
 		this.chosen_objs.add(pie);
+		this.chosen_objs.add(banana);
+		
 		group = new ObjectsContainer(new ArrayList<BasicObject>(chosen_objs));
 
 		all_objs_in_canvas.add(apple);
 		all_objs_in_canvas.add(pie);
+		all_objs_in_canvas.add(banana);
 		System.out.println(all_objs_in_canvas.get(1).start);
 		System.out.println(all_objs_in_canvas.get(1).end);
 		System.out.println(all_objs_in_canvas.get(0).start);
 		System.out.println(all_objs_in_canvas.get(0).end);
 		
-		this.add(group.current_array.get(1).main_label);
 		this.add(group.current_array.get(0).main_label);
+		this.add(group.current_array.get(1).main_label);
+		this.add(group.current_array.get(2).main_label);
 	}
 	
 	
@@ -74,6 +78,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	 public void mousePressed(MouseEvent event) {
 		 this.pointStart = event.getPoint();
 		 get_mode(buttons.idx_which_is_chosen,event,this);
+		 user_mode.mousePressed(event);
 	 }
 	 public void mouseEntered(MouseEvent event) {
 		 this.mouse = new mode_mouse(this);
@@ -97,6 +102,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
          user_mode.mouseDragged(event);
          repaint();
      }
+	 
 	 private void get_mode(int mode_type,MouseEvent event,canvas_panel canvas)
 	 {
 		 if(event.getButton()== MouseEvent.BUTTON1)
