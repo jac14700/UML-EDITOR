@@ -43,11 +43,8 @@ public class ObjectsContainer {
 		else {
 				ObjectsContainer tmp_groups = new ObjectsContainer(canvas_panel.array_of_groups);
 				ObjectsContainer the_disgroup_group = tmp_groups.all_input.get(disgoup_index);
-				System.out.println(canvas_panel.array_of_groups.size());
 				canvas_panel.array_of_groups.remove(disgoup_index);
-				System.out.println(canvas_panel.array_of_groups.size());
 				canvas_panel.array_of_groups.addAll(the_disgroup_group.all_input);
-				System.out.println(canvas_panel.array_of_groups.size());
 		}
 	}
 }
