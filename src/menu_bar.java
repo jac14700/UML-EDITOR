@@ -42,6 +42,7 @@ public class menu_bar  implements MenuListener{
 				}
 				canvas_panel.array_of_groups.clear();
 				canvas_panel.array_of_groups.add(Grouping);
+				canvas_panel.array_of_groups.get(0).it_is_a_BasicObject = false;
 				canvas_panel.array_of_groups.addAll(tmp_container.all_input);
 				updata_every_obj_its_group_id();
 				canvas_panel.saving_static_variable();
@@ -73,8 +74,13 @@ public class menu_bar  implements MenuListener{
 		disgroup = new JMenuItem("Disgroup");
 		disgroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				int the_most_outside_group_id = canvas_panel.array_of_groups.size() - Parameters.subtract_one_for_right_index;
-				canvas_panel.unselect_all_obj();
+				
+				if(canvas_panel.chosen_groups.size() == 1) {
+					int disgroup_idx = canvas_panel.chosen_groups.get(0).current_objs.get(0).idx_in_array_of_groups;
+					//System.out.println(disgroup_idx);
+					ObjectsContainer.disGroup(disgroup_idx);
+					updata_every_obj_its_group_id();
+				}
 			};
 		 });
 	}

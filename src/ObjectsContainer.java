@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class ObjectsContainer {
 	public ArrayList<ObjectsContainer> all_input =new ArrayList<ObjectsContainer>();
 	public ArrayList<BasicObject> current_objs = new ArrayList<BasicObject>();
-	public Boolean it_is_a_BasicObject = false;
+	public static Boolean it_is_a_BasicObject = false;
 	
 	ObjectsContainer(){}
 	
 	ObjectsContainer(ArrayList<ObjectsContainer> input_containers){
-		this.all_input = input_containers;
+		flatten_input_containers_to_current_objs(input_containers);		
 		flatten_all_input_to_current_objs(input_containers);
 	}
 	ObjectsContainer(BasicObject basic_obj){
@@ -26,6 +26,11 @@ public class ObjectsContainer {
 		this.all_input.addAll(chosen_groups);
 	}
 	
+	private void flatten_input_containers_to_current_objs(ArrayList<ObjectsContainer> input_containers) {
+		for(int idx =0; idx < input_containers.size(); idx++) {
+			this.all_input.add(input_containers.get(idx));
+		}
+	}
 	
 	private void flatten_all_input_to_current_objs(ArrayList<ObjectsContainer> input_containers) {
 		for (int c_index = 0; c_index < input_containers.size(); c_index++) {
@@ -33,9 +38,16 @@ public class ObjectsContainer {
 		}
 	}
 	
-	public void disGroup(){
-		if(this.it_is_a_BasicObject == true) {
-			return;
+	public static void disGroup(int disgoup_index){
+		if(canvas_panel.array_of_groups.get(disgoup_index).it_is_a_BasicObject == true){}
+		else {
+				ObjectsContainer tmp_groups = new ObjectsContainer(canvas_panel.array_of_groups);
+				ObjectsContainer the_disgroup_group = tmp_groups.all_input.get(disgoup_index);
+				System.out.println(canvas_panel.array_of_groups.size());
+				canvas_panel.array_of_groups.remove(disgoup_index);
+				System.out.println(canvas_panel.array_of_groups.size());
+				canvas_panel.array_of_groups.addAll(the_disgroup_group.all_input);
+				System.out.println(canvas_panel.array_of_groups.size());
 		}
 	}
 }
