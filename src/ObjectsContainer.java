@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ObjectsContainer {
-	public ArrayList<ObjectsContainer> all_input;
+	public ArrayList<ObjectsContainer> all_input =new ArrayList<ObjectsContainer>();
 	public ArrayList<BasicObject> current_objs = new ArrayList<BasicObject>();
 	public Boolean it_is_a_BasicObject = false;
 	
@@ -15,9 +15,15 @@ public class ObjectsContainer {
 		this.current_objs.add(basic_obj);
 		this.it_is_a_BasicObject = true;
 	}
+	
+	//add只能用在一次的連續包裹，之後此container則不能再繼續使用
 	public void add(ObjectsContainer input_container) {
 		this.all_input.add(input_container);
 		this.current_objs.addAll(input_container.current_objs);
+	}
+	public void add(ArrayList<ObjectsContainer> chosen_groups) {
+		flatten_all_input_to_current_objs(chosen_groups);
+		this.all_input.addAll(chosen_groups);
 	}
 	
 	

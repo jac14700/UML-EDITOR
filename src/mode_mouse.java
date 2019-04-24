@@ -22,17 +22,14 @@ public class mode_mouse extends JPanel  implements mode {
 	public void mouseExited(MouseEvent event){};
 	public void mouseEntered(MouseEvent event){};
 	public void mousePressed(MouseEvent event){
-		System.out.println("array_of_groups size: " + canvas_panel.array_of_groups.size());
 		Parameters.temp_for_mode_mouse_start_p = event.getPoint();
 		canvas_panel.unselect_all_obj();
 	};
 
 	public void mouseReleased(MouseEvent event){
-		//System.out.println("array_of_groups size: " + this.canvas.array_of_groups.size());
 		this.start_p = Parameters.temp_for_mode_mouse_start_p;
 		this.end_p = event.getPoint();
 		select_by_block();
-		//System.out.println("array_of_groups size: " + this.canvas.array_of_groups.size());
 	};
 	private void select_by_block(){
 		adjust_start_end_pointer();

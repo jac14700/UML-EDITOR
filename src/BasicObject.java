@@ -44,13 +44,10 @@ class BasicObject extends JPanel{
 				
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal())
 				{
-					System.out.println();
-					
 					canvas_panel.unselect_all_obj();
 					System.out.println("this obj belong to " + idx_in_array_of_groups + "group.");
 					select_the_entire_group();
-					
-				}
+                }
 			}
 			public void mouseReleased(MouseEvent arg0) {
 			}
@@ -60,19 +57,15 @@ class BasicObject extends JPanel{
 	protected void select_the_entire_group(){
 		canvas_panel.chosen_groups.clear();
 		canvas_panel.chosen_group_idx.clear();
-		
 		int selected_group = this.idx_in_array_of_groups;
-		System.out.println(this.idx_in_array_of_groups);
-		System.out.println("array_of_groups size: " + canvas_panel.array_of_groups.size());
-		ObjectsContainer tmp_container = canvas_panel.array_of_groups.get(selected_group);
-		canvas_panel.chosen_groups.add(tmp_container);
+		canvas_panel.chosen_groups.add(canvas_panel.array_of_groups.get(selected_group));
 		canvas_panel.chosen_group_idx.add(selected_group);
 		
-		repainting_every_obj_in_the_container(tmp_container);
+		repainting_every_obj_in_the_container(selected_group);
 	}
-	private void repainting_every_obj_in_the_container(ObjectsContainer tmp_container) {
-		for(int obj_idx = 0; obj_idx < tmp_container.current_objs.size(); obj_idx++) {
-			BasicObject tmp_obj = tmp_container.current_objs.get(obj_idx);
+	private void repainting_every_obj_in_the_container(int selected_group) {
+		for(int obj_idx = 0; obj_idx < canvas_panel.array_of_groups.get(selected_group).current_objs.size(); obj_idx++) {
+			BasicObject tmp_obj = canvas_panel.array_of_groups.get(selected_group).current_objs.get(obj_idx);
 			tmp_obj.main_label.select_this_object();
 		}
 	}
