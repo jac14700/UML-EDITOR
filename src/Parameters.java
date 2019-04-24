@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Parameters {
 	
@@ -14,7 +15,12 @@ public class Parameters {
 		    "class.png",
 		    "usecase.png"
 		};
-	
+	public static ArrayList<ObjectsContainer> tmp_array_of_groups = new ArrayList<ObjectsContainer>();
+	public static ArrayList<BasicObject> tmp_all_objs_in_canvas = new ArrayList<BasicObject>();
+	public static ArrayList<ObjectsContainer> tmp_chosen_groups =  new ArrayList<ObjectsContainer>();
+	public static ArrayList<Integer> tmp_chosen_group_idx = new ArrayList<Integer>();
+	public static int subtract_one_for_right_index = 1;
+	public static int nonGroup = -1;
 	public static int Button_no_action = -1;
 	public enum Button {
 		mouse,

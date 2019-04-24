@@ -6,11 +6,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 public class mode_mouse extends JPanel  implements mode {
-	
+	private static final long serialVersionUID = 1L;
 	private int mode = Parameters.Button.mouse.ordinal();
-	private int x,y;
-	public Point start_p, tmp = new Point(0,0), end_p = new Point(0,0);
-	private MouseEvent press;
+	public Point start_p, end_p = new Point(0,0);
 	private canvas_panel canvas;
 	Graphics g;
 	
@@ -22,33 +20,24 @@ public class mode_mouse extends JPanel  implements mode {
 	
 	public void mouseClicked(MouseEvent event) {};
 	public void mouseExited(MouseEvent event){};
-	public void mouseEntered(MouseEvent event){};	
+	public void mouseEntered(MouseEvent event){};
 	public void mousePressed(MouseEvent event){
+		System.out.println("array_of_groups size: " + canvas_panel.array_of_groups.size());
 		Parameters.temp_for_mode_mouse_start_p = event.getPoint();
-		this.tmp = event.getPoint();
 		canvas_panel.unselect_all_obj();
 	};
+
 	public void mouseReleased(MouseEvent event){
+		//System.out.println("array_of_groups size: " + this.canvas.array_of_groups.size());
 		this.start_p = Parameters.temp_for_mode_mouse_start_p;
 		this.end_p = event.getPoint();
-		select_by_block();		
-		//this.start_p = null;
-		//this.end_p = null;
+		select_by_block();
+		//System.out.println("array_of_groups size: " + this.canvas.array_of_groups.size());
 	};
-	public void mouseDragged(MouseEvent event){
-		this.end_p = event.getPoint();
-	}; 
-	public void mouseMoved(MouseEvent event){
-		this.end_p = event.getPoint();
-	}
-	
-	public int getMode(){
-		return this.mode;
-	}
 	private void select_by_block(){
 		adjust_start_end_pointer();
 		selecting_obj_in_the_block();
-		chosen_objs_repaint();
+		chosen_group_repaint();
 	}
 	private void adjust_start_end_pointer(){
 		int left_x = Math.min(this.start_p.x,this.end_p.x);
@@ -58,24 +47,48 @@ public class mode_mouse extends JPanel  implements mode {
 		this.start_p = new Point(left_x,top_y);
 		this.end_p= new Point(right_x,button_x);
 	}
+	
 	private void selecting_obj_in_the_block(){
-		this.canvas.chosen_objs.clear();
-	    System.out.println(this.x);
-	    
-		for(int index = 0; index < this.canvas.all_objs_in_canvas.size(); index++) {
-			BasicObject tmp = this.canvas.all_objs_in_canvas.get(index);
-			if(tmp.start.x >this.start_p.x&&
-			   tmp.start.y >this.start_p.y&&
-			   tmp.end.x <this.end_p.x&&
-			   tmp.end.y <this.end_p.y) {
-			    this.canvas.chosen_objs.add(tmp);
+		canvas_panel.chosen_groups.clear();
+		canvas_panel.chosen_group_idx.clear();
+	    for(int container_index =0;container_index  < canvas_panel.array_of_groups.size();container_index ++) {
+		    	ObjectsContainer tmp_container = canvas_panel.array_of_groups.get(container_index);
+		    	
+		    	if(every_obj_of_tmp_container_in_the_block(tmp_container)){
+		    		canvas_panel.chosen_groups.add(tmp_container);
+		    		canvas_panel.chosen_group_idx.add(container_index);}
+		    	else{continue;}
+	    }	
+	}
+	private boolean every_obj_of_tmp_container_in_the_block(ObjectsContainer tmp_container) {
+		boolean true_or_false = true;
+		for(int index = 0; index < tmp_container.current_objs.size(); index++) {
+			BasicObject tmp_obj = tmp_container.current_objs.get(index);
+			if(tmp_obj.start.x <this.start_p.x||
+			   tmp_obj.start.y <this.start_p.y||
+			   tmp_obj.end.x   >this.end_p.x  ||
+			   tmp_obj.end.y   >this.end_p.y) {
+				true_or_false = false;
+				break;
+			}
+		}
+		return true_or_false;
+	}
+	private void chosen_group_repaint()
+	{
+		for(int g_index = 0; g_index < canvas_panel.chosen_groups.size(); g_index ++) {
+			for(int obj_index = 0; obj_index < canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
+				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).main_label.select_this_object();
 			}
 		}
 	}
-	private void chosen_objs_repaint()
-	{
-		for(int index = 0; index < this.canvas.chosen_objs.size(); index++) {
-			this.canvas.chosen_objs.get(index).main_label.select_this_object();
-		}
+	public void mouseDragged(MouseEvent event){
+		//this.end_p = event.getPoint();
+	}; 
+	public void mouseMoved(MouseEvent event){
+		//this.end_p = event.getPoint();
 	}
+	public int getMode(){
+		return this.mode;
+	}	
 }

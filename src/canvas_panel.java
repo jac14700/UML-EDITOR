@@ -14,55 +14,19 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private int panel_h;
 	private Point pointStart = null;
 	private Point pointEnd   = null;
-	
 	private BasicObject pie,apple,banana;
-	private ArrayList<ObjectsContainer> array_of_containers;
-	private ObjectsContainer group;
+	public static ArrayList<ObjectsContainer> array_of_groups = new ArrayList<ObjectsContainer>();
 	public static ArrayList<BasicObject> all_objs_in_canvas = new ArrayList<BasicObject>();
-	public ArrayList<BasicObject> chosen_objs =  new ArrayList<BasicObject>();
+	public static ArrayList<ObjectsContainer> chosen_groups =  new ArrayList<ObjectsContainer>();
+	public static ArrayList<Integer> chosen_group_idx = new ArrayList<Integer>();
 	private mode user_mode = new mode_no_action();
 	private mode_mouse mouse;
 	private mode_no_action no_action;
 	private mode_class class_;
+	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
-		pie = new DrawClass(new Point(10,100));
-		this.apple = new DrawClass(new Point(120,200));	
-		banana = new DrawClass(new Point(320,500)); 
-		
-		//group ªº¤u§@
-		this.chosen_objs.add(apple);
-		this.chosen_objs.add(pie);
-		this.chosen_objs.add(banana);
-		
-		group = new ObjectsContainer(new ArrayList<BasicObject>(chosen_objs));
-
-		all_objs_in_canvas.add(apple);
-		all_objs_in_canvas.add(pie);
-		all_objs_in_canvas.add(banana);
-		System.out.println(all_objs_in_canvas.get(1).start);
-		System.out.println(all_objs_in_canvas.get(1).end);
-		System.out.println(all_objs_in_canvas.get(0).start);
-		System.out.println(all_objs_in_canvas.get(0).end);
-		
-		this.add(group.current_array.get(0).main_label);
-		this.add(group.current_array.get(1).main_label);
-		this.add(group.current_array.get(2).main_label);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private void init_every_setting(int frame_w,int frame_h)
 	{
@@ -120,17 +84,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		 		break;
 		 }
 	 }
-	 private void call_all_m_listener(MouseEvent event)
-	 {
-		/*user_mode.mousePressed(event);
-	 	user_mode.mouseClicked(event);
-		user_mode.mouseExited(event);
-		user_mode.mouseEntered(event);
-		user_mode.mouseDragged(event);
-		user_mode.mouseMoved(event);
-		user_mode.mouseReleased(event);
-		*/
-	 }
+
 	 
 	 public static void unselect_all_obj()
 	 {
@@ -155,4 +109,17 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
          g.drawLine(this.pointEnd.x,   this.pointStart.y, this.pointEnd.x, this.pointEnd.y);
          g.drawLine(this.pointStart.x, this.pointEnd.y, this.pointEnd.x, this.pointEnd.y);
 	 }
+	 public static void saving_static_variable() {
+		Parameters.tmp_array_of_groups = canvas_panel.array_of_groups;
+		Parameters.tmp_chosen_groups = canvas_panel.chosen_groups;
+		Parameters.tmp_all_objs_in_canvas = canvas_panel.all_objs_in_canvas;
+		Parameters.tmp_chosen_group_idx = canvas_panel.chosen_group_idx;
+	}
+	public static void loading_form_buffer()
+	{
+		canvas_panel.all_objs_in_canvas = Parameters.tmp_all_objs_in_canvas;
+		canvas_panel.chosen_group_idx = Parameters.tmp_chosen_group_idx;
+		canvas_panel.chosen_groups= Parameters.tmp_chosen_groups;
+		canvas_panel.array_of_groups = Parameters.tmp_array_of_groups;
+	}
 }
