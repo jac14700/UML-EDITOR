@@ -26,6 +26,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
+		
 	}
 	
 	private void init_every_setting(int frame_w,int frame_h)
@@ -109,17 +110,5 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
          g.drawLine(this.pointEnd.x,   this.pointStart.y, this.pointEnd.x, this.pointEnd.y);
          g.drawLine(this.pointStart.x, this.pointEnd.y, this.pointEnd.x, this.pointEnd.y);
 	 }
-	 public static void saving_static_variable() {
-		Parameters.tmp_array_of_groups = canvas_panel.array_of_groups;
-		Parameters.tmp_chosen_groups = canvas_panel.chosen_groups;
-		Parameters.tmp_all_objs_in_canvas = canvas_panel.all_objs_in_canvas;
-		Parameters.tmp_chosen_group_idx = canvas_panel.chosen_group_idx;
-	}
-	public static void loading_form_buffer()
-	{
-		canvas_panel.all_objs_in_canvas = Parameters.tmp_all_objs_in_canvas;
-		canvas_panel.chosen_group_idx = Parameters.tmp_chosen_group_idx;
-		canvas_panel.chosen_groups= Parameters.tmp_chosen_groups;
-		canvas_panel.array_of_groups = Parameters.tmp_array_of_groups;
-	}
+
 }

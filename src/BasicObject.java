@@ -10,12 +10,11 @@ import javax.swing.JPanel;
 
 class BasicObject extends JPanel{
 	private static final long serialVersionUID = 1L;
-	protected Point start,end;
+	public Point start,end;
 	public Main_Label main_label = new Main_Label();
 	protected JLabel message= new JLabel();
 	protected Dimension size;
 	protected int idx_in_array_of_groups = Parameters.nonGroup;
-	
 	BasicObject(){
 	 init();
 	}
@@ -24,24 +23,22 @@ class BasicObject extends JPanel{
 	}
 	protected void init()
 	{
-		add_mouse_listener_to_main_label(this);
+		add_mouse_listener_to_main_label(this,this.start);
 	}
 	protected void init(Point start)
 	{
 		this.start = start;
-		add_mouse_listener_to_main_label(this);
+		add_mouse_listener_to_main_label(this,this.start);
 	}
-	protected void add_mouse_listener_to_main_label (BasicObject obj) {
+	protected void add_mouse_listener_to_main_label (BasicObject obj,Point start) {
 		this.main_label.addMouseListener(
 		new MouseListener() {
-			public void mouseClicked(MouseEvent arg0) {
-			}
-			public void mouseExited(MouseEvent arg0) {
-			}
-			public void mouseEntered(MouseEvent arg0) {
-			}
-			public void mousePressed(MouseEvent arg0) {
-				
+			private Point m_start = new Point(0,0);
+			private Point m_end = new Point(0,0);
+			public void mouseClicked(MouseEvent event){}
+			public void mouseExited(MouseEvent event){}
+			public void mouseEntered(MouseEvent event){}
+			public void mousePressed(MouseEvent event){
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal())
 				{
 					canvas_panel.unselect_all_obj();
@@ -49,11 +46,25 @@ class BasicObject extends JPanel{
 					select_the_entire_group();
                 }
 			}
-			public void mouseReleased(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent event) {
+				System.out.println("mouseReleased:"+m_end);
+				//move_the_entire_group();
+			}
+			public void mouseDragged(MouseEvent event){
+				System.out.println("mouseDragged:"+m_end);
+				obj.main_label.setLocation(m_end.x,m_end.y);
+	            getParent().repaint();
+			}; 
+			public void mouseMoved(MouseEvent event){
+				m_end = event.getPoint();
+				System.out.println("mouseMoved:"+m_end);
+				obj.main_label.setLocation(m_end.x,m_end.y);
+				revalidate();
+	            getParent().repaint();
 			}
 		});
 	}
-	
+	protected void move_the_entire_group() {}
 	protected void select_the_entire_group(){
 		canvas_panel.chosen_groups.clear();
 		canvas_panel.chosen_group_idx.clear();

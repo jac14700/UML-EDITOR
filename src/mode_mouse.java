@@ -80,10 +80,8 @@ public class mode_mouse extends JPanel  implements mode {
 		}
 	}
 	public void mouseDragged(MouseEvent event){
-		//this.end_p = event.getPoint();
 	}; 
 	public void mouseMoved(MouseEvent event){
-		//this.end_p = event.getPoint();
 	}
 	public int getMode(){
 		return this.mode;

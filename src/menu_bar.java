@@ -45,7 +45,6 @@ public class menu_bar  implements MenuListener{
 				canvas_panel.array_of_groups.get(0).it_is_a_BasicObject = false;
 				canvas_panel.array_of_groups.addAll(tmp_container.all_input);
 				updata_every_obj_its_group_id();
-				canvas_panel.saving_static_variable();
 			};
 		 });
 	}	
