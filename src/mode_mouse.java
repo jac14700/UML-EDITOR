@@ -49,7 +49,6 @@ public class mode_mouse extends JPanel  implements mode {
 		canvas_panel.chosen_groups.clear();
 		canvas_panel.chosen_group_idx.clear();
 	    for(int container_index =0;container_index  < canvas_panel.array_of_groups.size();container_index ++) {
-		    	
 		    	if(every_obj_of_tmp_container_in_the_block(container_index)){
 		    		canvas_panel.chosen_groups.add(canvas_panel.array_of_groups.get(container_index));
 		    		canvas_panel.chosen_group_idx.add(container_index);}
@@ -58,11 +57,12 @@ public class mode_mouse extends JPanel  implements mode {
 	}
 	private boolean every_obj_of_tmp_container_in_the_block(int container_index) {
 		boolean true_or_false = true;
-		for(int obj_index = 0; obj_index < canvas_panel.array_of_groups.get(container_index).current_objs.size(); obj_index++) {
-			if( canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).start.x <this.m_start.x||
-				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).start.y <this.m_start.y||
-				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).end.x   >this.m_end.x  ||
-				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).end.y   >this.m_end.y) {
+		for(int index = 0; index < canvas_panel.array_of_groups.get(container_index).current_objs.size(); index++) {
+			BasicObject tmp_obj = canvas_panel.array_of_groups.get(container_index).current_objs.get(index);
+			if(tmp_obj.start.x <this.m_start.x||
+			   tmp_obj.start.y <this.m_start.y||
+			   tmp_obj.end.x   >this.m_end.x  ||
+			   tmp_obj.end.y   >this.m_end.y) {
 				true_or_false = false;
 				break;
 			}

@@ -53,20 +53,21 @@ class BasicObject extends JPanel{
 			}
 			
 			public void mouseReleased(MouseEvent event) {
-				m_end = get_real_location(event.getPoint());
-				//move_the_entire_chosen_group(m_start,m_end);
-				up_date_obj_points(obj,m_start,m_end);
-				BasicObject.this.main_label.setLocation(BasicObject.this.center.x,BasicObject.this.center.y);
+				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal()){
+					m_end = get_real_location(event.getPoint());
+					move_the_entire_chosen_group(m_start,m_end);
+					//up_date_obj_points(m_start,m_end);
+					//BasicObject.this.main_label.setLocation(BasicObject.this.center.x,BasicObject.this.center.y);
+				}
 				
 			}
-			private void up_date_obj_points(BasicObject a_obj, Point pressed_p, Point released_p) {
+			private void up_date_obj_points(Point pressed_p, Point released_p, int g_index, int obj_index) {
 				int move_x = released_p.x - pressed_p.x;
 				int move_y = released_p.y - pressed_p.y;
-				BasicObject.this.start.x = BasicObject.this.start.x + move_x;
-				BasicObject.this.start.y = BasicObject.this.start.y + move_y;
-				BasicObject.this.center.x = BasicObject.this.start.x + BasicObject.this.size.height/2;
-				BasicObject.this.center.y = BasicObject.this.start.y + BasicObject.this.size.width/2;
-				System.out.println(BasicObject.this.center);
+				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x + move_x;
+				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y + move_y;
+				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.x = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x + canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).size.height/2;
+				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.y = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y + canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).size.width/2;
 			}
 			private Point get_real_location(Point point_i) {
 				point_i.x = BasicObject.this.start.x + point_i.x;
@@ -76,8 +77,8 @@ class BasicObject extends JPanel{
 			private void move_the_entire_chosen_group(Point pressed_p, Point released_p) {
 				for(int g_index =0; g_index < canvas_panel.chosen_groups.size(); g_index++) {
 					for(int obj_index =0;obj_index <canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
-						up_date_obj_points(canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index),m_start,m_end);
-						canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).main_label.setLocation(obj.center.x,obj.center.y);
+						up_date_obj_points(m_start,m_end,g_index,obj_index);
+						canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).main_label.setLocation(canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.x,canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.y);
 					}
 				}
 			}
