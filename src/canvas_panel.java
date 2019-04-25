@@ -14,7 +14,6 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private int panel_h;
 	private Point pointStart = null;
 	private Point pointEnd   = null;
-	private BasicObject pie,apple,banana;
 	public static ArrayList<ObjectsContainer> array_of_groups = new ArrayList<ObjectsContainer>();
 	public static ArrayList<BasicObject> all_objs_in_canvas = new ArrayList<BasicObject>();
 	public static ArrayList<ObjectsContainer> chosen_groups =  new ArrayList<ObjectsContainer>();

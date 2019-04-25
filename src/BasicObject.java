@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -56,10 +54,7 @@ class BasicObject extends JPanel{
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal()){
 					m_end = get_real_location(event.getPoint());
 					move_the_entire_chosen_group(m_start,m_end);
-					//up_date_obj_points(m_start,m_end);
-					//BasicObject.this.main_label.setLocation(BasicObject.this.center.x,BasicObject.this.center.y);
 				}
-				
 			}
 			private void up_date_obj_points(Point pressed_p, Point released_p, int g_index, int obj_index) {
 				int move_x = released_p.x - pressed_p.x;

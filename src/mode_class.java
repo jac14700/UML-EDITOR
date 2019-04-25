@@ -5,14 +5,11 @@ import javax.swing.SwingUtilities;
 
 public class mode_class implements mode {
 	private int mode_type =  Parameters.Button.draw_class.ordinal();
-	private ObjectsContainer tmp_obj;
-	private ArrayList<BasicObject> all_objs;
 	private canvas_panel canvas;
 	
 	public mode_class(canvas_panel canvas ,ArrayList<BasicObject> all_objs)
 	{
 		this.canvas = canvas;
-		this.all_objs = all_objs;
 	}
 	public void mouseClicked(MouseEvent arg0) {};
 	public void mouseExited(MouseEvent arg0){};

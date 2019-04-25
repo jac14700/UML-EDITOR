@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class ObjectsContainer {
 	public ArrayList<ObjectsContainer> all_input =new ArrayList<ObjectsContainer>();
 	public ArrayList<BasicObject> current_objs = new ArrayList<BasicObject>();
-	public static Boolean it_is_a_BasicObject = false;
+	public Boolean it_is_a_BasicObject = false;
 	
 	ObjectsContainer(){}
 	

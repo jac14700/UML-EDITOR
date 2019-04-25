@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -9,13 +8,11 @@ public class mode_mouse extends JPanel  implements mode {
 	private static final long serialVersionUID = 1L;
 	private int mode = Parameters.Button.mouse.ordinal();
 	public Point m_start, m_end = new Point(0,0);
-	private canvas_panel canvas;
 	Graphics g;
 	
 	public mode_mouse(canvas_panel canvas){
 		m_start = new Point(0,0);
 		m_end = new Point(0,0);
-		this.canvas = canvas;
 	}
 	
 	public void mouseClicked(MouseEvent event) {};

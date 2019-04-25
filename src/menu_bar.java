@@ -1,9 +1,8 @@
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
-
 import java.awt.event.*;
-import java.util.ArrayList;
+
 public class menu_bar  implements MenuListener{
 	public JMenuBar menu_bar;
 	private JMenu edit;

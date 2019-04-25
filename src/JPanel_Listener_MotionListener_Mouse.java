@@ -5,6 +5,8 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 public class JPanel_Listener_MotionListener_Mouse extends JPanel implements MouseListener,MouseMotionListener {
+
+	private static final long serialVersionUID = 1L;
 	public void mouseClicked(MouseEvent arg0){}
 	public void mouseExited(MouseEvent arg0){}
 	public void mouseEntered(MouseEvent arg0){}
