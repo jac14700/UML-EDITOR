@@ -88,9 +88,19 @@ public class menu_bar  implements MenuListener{
 		change_obj_name = new JMenuItem("Change object name");
 		 change_obj_name.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-			 JOptionPane.showMessageDialog(null,"Hi");
+				if(chosing_a_singal_obj()) {
+					String new_name;
+					new_name =  JOptionPane.showInputDialog("new name","new name");
+					canvas_panel.chosen_groups.get(0).current_objs.get(0).message.setText(new_name);
+				}
 			};
 		 });
+	}
+	private boolean chosing_a_singal_obj() {
+		if(canvas_panel.chosen_groups.size() == 1 &&
+		   canvas_panel.chosen_groups.get(0).current_objs.size()== 1) 
+			 {return true;}
+		else {return false;}
 	}
 	@Override
 	public void menuSelected(MenuEvent e) {

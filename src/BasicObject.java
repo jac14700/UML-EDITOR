@@ -30,6 +30,17 @@ class BasicObject extends JPanel{
 		
 		add_mouse_listener_to_main_label(this);
 	}
+	public void update_end_center_point() {
+		this.end.x = this.start.x +this.size.width;
+		this.end.y = this.start.y +this.size.height;
+		this.center.x = this.start.x + this.size.width/2;
+		this.center.y = this.start.y + this.size.height/2;
+	}
+	public void move(Point move_p) {
+		this.start.x = this.start.x + move_p.x;
+		this.start.y = this.start.y + move_p.y;
+		update_end_center_point();
+	}
 	protected void add_mouse_listener_to_main_label (BasicObject obj) {
 		this.main_label.addMouseListener(
 		new MouseListener() {
@@ -56,13 +67,15 @@ class BasicObject extends JPanel{
 					move_the_entire_chosen_group(m_start,m_end);
 				}
 			}
-			private void up_date_obj_points(Point pressed_p, Point released_p, int g_index, int obj_index) {
-				int move_x = released_p.x - pressed_p.x;
-				int move_y = released_p.y - pressed_p.y;
-				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x + move_x;
-				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y + move_y;
-				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.x = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.x + canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).size.height/2;
-				canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.y = canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).start.y + canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).size.width/2;
+			private void up_date_obj_points(Point pressed_p, Point released_p, int chosen_g_idx_of_array_groups, int obj_index, int g_index) {
+				Point move = new Point(released_p.x - pressed_p.x,released_p.y - pressed_p.y);
+				Point obj_start = canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start;
+				Dimension obj_size = canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).size;
+				adjust_array_of_groups_points_stuffs(chosen_g_idx_of_array_groups,obj_index, move, obj_start, obj_size);
+			}
+		
+			private void adjust_array_of_groups_points_stuffs(int chosen_g_idx_of_array_groups, int obj_index, Point move, Point obj_start, Dimension obj_size) {
+				canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).move(move);
 			}
 			private Point get_real_location(Point point_i) {
 				point_i.x = BasicObject.this.start.x + point_i.x;
@@ -70,10 +83,12 @@ class BasicObject extends JPanel{
 				return point_i;
 			}
 			private void move_the_entire_chosen_group(Point pressed_p, Point released_p) {
-				for(int g_index =0; g_index < canvas_panel.chosen_groups.size(); g_index++) {
+				for(int g_index =0; g_index < canvas_panel.chosen_group_idx.size(); g_index++) {
+					int chosen_g_idx_of_array_groups = canvas_panel.chosen_group_idx.get(g_index);
 					for(int obj_index =0;obj_index <canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
-						up_date_obj_points(m_start,m_end,g_index,obj_index);
-						canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).main_label.setLocation(canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.x,canvas_panel.chosen_groups.get(g_index).current_objs.get(obj_index).center.y);
+						up_date_obj_points(m_start,m_end,chosen_g_idx_of_array_groups,obj_index,g_index);
+						canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).main_label.setLocation(canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.x,
+																															canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.y);
 					}
 				}
 			}
@@ -83,16 +98,15 @@ class BasicObject extends JPanel{
 	private void select_the_entire_group(){
 		canvas_panel.chosen_groups.clear();
 		canvas_panel.chosen_group_idx.clear();
-		int selected_group = this.idx_in_array_of_groups;
-		canvas_panel.chosen_groups.add(canvas_panel.array_of_groups.get(selected_group));
-		canvas_panel.chosen_group_idx.add(selected_group);
+		int current_selected_group = this.idx_in_array_of_groups;
+		canvas_panel.chosen_groups.add(canvas_panel.array_of_groups.get(current_selected_group));
+		canvas_panel.chosen_group_idx.add(current_selected_group);
 		
-		repainting_every_obj_in_the_container(selected_group);
+		repainting_every_obj_in_the_container(current_selected_group);
 	}
 	private void repainting_every_obj_in_the_container(int selected_group) {
 		for(int obj_idx = 0; obj_idx < canvas_panel.array_of_groups.get(selected_group).current_objs.size(); obj_idx++) {
-			BasicObject tmp_obj = canvas_panel.array_of_groups.get(selected_group).current_objs.get(obj_idx);
-			tmp_obj.main_label.select_this_object();
+			canvas_panel.array_of_groups.get(selected_group).current_objs.get(obj_idx).main_label.select_this_object();
 		}
 	}
 }
