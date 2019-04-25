@@ -6,8 +6,12 @@ public class DrawClass extends BasicObject{
 	private String  name = "Now or never!";
 	private Dimension size_of_class = new Dimension(100, 100);
 	
+	
 	DrawClass(Point start){
 		super(start);
+		this.size = size_of_class;
+		this.center.x = this.start.x + this.size.width/2;
+		this.center.y = this.start.y + this.size.height/2;
 		this.main_label.setOpaque(true);
 		this.main_label.setBackground(Color.orange);
 		this.main_label.setLocation(this.start.x,this.start.y);

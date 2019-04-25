@@ -15,6 +15,7 @@ public class Parameters {
 		    "class.png",
 		    "usecase.png"
 		};
+	public static Point temp_for_mode_mouse_m_start = new Point(0,0);
 	public static ArrayList<ObjectsContainer> tmp_array_of_groups = new ArrayList<ObjectsContainer>();
 	public static ArrayList<BasicObject> tmp_all_objs_in_canvas = new ArrayList<BasicObject>();
 	public static ArrayList<ObjectsContainer> tmp_chosen_groups =  new ArrayList<ObjectsContainer>();

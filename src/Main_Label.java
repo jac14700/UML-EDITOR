@@ -11,7 +11,7 @@ public class Main_Label extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	public Boolean selected = false;
 	private int w_h_of_port = 12;
-	
+
 	public void unselected_this_obj(){
 		this.selected = false;
 		this.setBorder(null);

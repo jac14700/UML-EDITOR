@@ -8,13 +8,13 @@ import javax.swing.JPanel;
 public class mode_mouse extends JPanel  implements mode {
 	private static final long serialVersionUID = 1L;
 	private int mode = Parameters.Button.mouse.ordinal();
-	public Point start_p, end_p = new Point(0,0);
+	public Point m_start, m_end = new Point(0,0);
 	private canvas_panel canvas;
 	Graphics g;
 	
 	public mode_mouse(canvas_panel canvas){
-		start_p = new Point(0,0);
-		end_p = new Point(0,0);
+		m_start = new Point(0,0);
+		m_end = new Point(0,0);
 		this.canvas = canvas;
 	}
 	
@@ -22,49 +22,47 @@ public class mode_mouse extends JPanel  implements mode {
 	public void mouseExited(MouseEvent event){};
 	public void mouseEntered(MouseEvent event){};
 	public void mousePressed(MouseEvent event){
-		Parameters.temp_for_mode_mouse_start_p = event.getPoint();
+		Parameters.temp_for_mode_mouse_m_start = event.getPoint();
 		canvas_panel.unselect_all_obj();
 	};
 
 	public void mouseReleased(MouseEvent event){
-		this.start_p = Parameters.temp_for_mode_mouse_start_p;
-		this.end_p = event.getPoint();
+		this.m_start = Parameters.temp_for_mode_mouse_m_start;
+		this.m_end = event.getPoint();
 		select_by_block();
 	};
 	private void select_by_block(){
-		adjust_start_end_pointer();
+		adjust_start_m_endointer();
 		selecting_obj_in_the_block();
 		chosen_group_repaint();
 	}
-	private void adjust_start_end_pointer(){
-		int left_x = Math.min(this.start_p.x,this.end_p.x);
-		int top_y = Math.min(this.start_p.y,this.end_p.y);
-		int right_x = Math.max(this.start_p.x,this.end_p.x);
-		int button_x = Math.max(this.start_p.y,this.end_p.y);
-		this.start_p = new Point(left_x,top_y);
-		this.end_p= new Point(right_x,button_x);
+	private void adjust_start_m_endointer(){
+		int left_x = Math.min(this.m_start.x,this.m_end.x);
+		int top_y = Math.min(this.m_start.y,this.m_end.y);
+		int right_x = Math.max(this.m_start.x,this.m_end.x);
+		int button_x = Math.max(this.m_start.y,this.m_end.y);
+		this.m_start = new Point(left_x,top_y);
+		this.m_end= new Point(right_x,button_x);
 	}
 	
 	private void selecting_obj_in_the_block(){
 		canvas_panel.chosen_groups.clear();
 		canvas_panel.chosen_group_idx.clear();
 	    for(int container_index =0;container_index  < canvas_panel.array_of_groups.size();container_index ++) {
-		    	ObjectsContainer tmp_container = canvas_panel.array_of_groups.get(container_index);
 		    	
-		    	if(every_obj_of_tmp_container_in_the_block(tmp_container)){
-		    		canvas_panel.chosen_groups.add(tmp_container);
+		    	if(every_obj_of_tmp_container_in_the_block(container_index)){
+		    		canvas_panel.chosen_groups.add(canvas_panel.array_of_groups.get(container_index));
 		    		canvas_panel.chosen_group_idx.add(container_index);}
 		    	else{continue;}
 	    }	
 	}
-	private boolean every_obj_of_tmp_container_in_the_block(ObjectsContainer tmp_container) {
+	private boolean every_obj_of_tmp_container_in_the_block(int container_index) {
 		boolean true_or_false = true;
-		for(int index = 0; index < tmp_container.current_objs.size(); index++) {
-			BasicObject tmp_obj = tmp_container.current_objs.get(index);
-			if(tmp_obj.start.x <this.start_p.x||
-			   tmp_obj.start.y <this.start_p.y||
-			   tmp_obj.end.x   >this.end_p.x  ||
-			   tmp_obj.end.y   >this.end_p.y) {
+		for(int obj_index = 0; obj_index < canvas_panel.array_of_groups.get(container_index).current_objs.size(); obj_index++) {
+			if( canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).start.x <this.m_start.x||
+				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).start.y <this.m_start.y||
+				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).end.x   >this.m_end.x  ||
+				canvas_panel.array_of_groups.get(container_index).current_objs.get(obj_index).end.y   >this.m_end.y) {
 				true_or_false = false;
 				break;
 			}
