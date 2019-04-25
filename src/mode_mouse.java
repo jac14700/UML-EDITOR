@@ -56,7 +56,6 @@ public class mode_mouse extends JPanel  implements mode {
 		boolean true_or_false = true;
 		for(int index = 0; index < canvas_panel.array_of_groups.get(group_index).current_objs.size(); index++) {
 			BasicObject tmp_obj =  canvas_panel.array_of_groups.get(group_index).current_objs.get(index);
-			System.out.println(tmp_obj.start);
 			if(tmp_obj.start.x <this.m_start.x||
 			   tmp_obj.start.y <this.m_start.y||
 			   tmp_obj.end.x   >this.m_end.x  ||

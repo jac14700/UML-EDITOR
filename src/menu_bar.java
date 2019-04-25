@@ -91,7 +91,9 @@ public class menu_bar  implements MenuListener{
 				if(chosing_a_singal_obj()) {
 					String new_name;
 					new_name =  JOptionPane.showInputDialog("new name","new name");
-					canvas_panel.chosen_groups.get(0).current_objs.get(0).message.setText(new_name);
+					if(new_name != null) {
+						canvas_panel.chosen_groups.get(0).current_objs.get(0).message.setText(new_name);
+					}
 				}
 			};
 		 });
