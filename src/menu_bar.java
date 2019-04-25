@@ -104,20 +104,7 @@ public class menu_bar  implements MenuListener{
 			 {return true;}
 		else {return false;}
 	}
-	@Override
-	public void menuSelected(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void menuDeselected(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-	@Override
-	public void menuCanceled(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void menuSelected(MenuEvent e) {}
+	public void menuDeselected(MenuEvent e) {}
+	public void menuCanceled(MenuEvent e) {}
 }

@@ -9,6 +9,7 @@ public class Main_Label extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	public Boolean selected = false;
 	private int w_h_of_port = 12;
+	public int mode;
 
 	public void unselected_this_obj(){
 		this.selected = false;
@@ -23,12 +24,18 @@ public class Main_Label extends JPanel  {
 	public void paintComponent (Graphics g)
     { 
 	    super.paintComponent(g);
+
+	    if(this.selected||
+	       this.mode == Parameters.Button.user_case.ordinal()) {
+	    	g.setColor(Color.orange);
+	    	g.fillOval(0, 0, 100, 100);
+	    }	   
 	    if(this.selected) {
-		    g.setColor(Color.RED);
+	    	g.setColor(Color.RED);
 		    g.fillOval(0 - w_h_of_port/2, 50 - w_h_of_port/2, w_h_of_port, w_h_of_port);
 		    g.fillOval(50 - w_h_of_port/2, 0 - w_h_of_port/2, w_h_of_port, w_h_of_port);
 		    g.fillOval(50 - w_h_of_port/2, 100 - w_h_of_port/2, w_h_of_port, w_h_of_port);
 		    g.fillOval(100 - w_h_of_port/2, 50 - w_h_of_port/2, w_h_of_port, w_h_of_port);
 	    }
-} 
+    } 
 }

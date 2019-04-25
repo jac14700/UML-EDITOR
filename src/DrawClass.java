@@ -12,6 +12,7 @@ public class DrawClass extends BasicObject{
 		this.size = size_of_class;
 		this.center.x = this.start.x + this.size.width/2;
 		this.center.y = this.start.y + this.size.height/2;
+		this.main_label.mode = Parameters.Button.draw_class.ordinal();
 		this.main_label.setOpaque(true);
 		this.main_label.setBackground(Color.orange);
 		this.main_label.setLocation(this.start.x,this.start.y);

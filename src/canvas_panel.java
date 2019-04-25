@@ -22,6 +22,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private mode_mouse mouse;
 	private mode_no_action no_action;
 	private mode_class class_;
+	private mode_use_case use_case;
 	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
@@ -47,7 +48,8 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	 public void mouseEntered(MouseEvent event) {
 		 this.mouse = new mode_mouse(this);
 		 this.no_action= new mode_no_action();
-		 this.class_= new mode_class(this,all_objs_in_canvas);
+		 this.class_= new mode_class(this);
+		 this.use_case= new mode_use_case(this);
 	 }
 	 public void mouseReleased(MouseEvent event) {
 		 this.pointStart = null;
@@ -81,6 +83,9 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		 		break;
 		 	case 4:
 		 		user_mode = class_;
+		 		break;
+		 	case 5:
+		 		user_mode = use_case;
 		 		break;
 		 }
 	 }
