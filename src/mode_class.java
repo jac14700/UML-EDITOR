@@ -24,6 +24,7 @@ public class mode_class implements mode {
 	};
 	public void Set_group_index_for_the_obj(int idx) {
 		canvas_panel.array_of_groups.get(idx).current_objs.get(0).idx_in_array_of_groups = idx;
+		canvas_panel.array_of_groups.get(idx).current_objs.get(0).idx_in_current_objs = 0;
 	}
 	public void mouseReleased(MouseEvent arg0){};
 	public void mouseDragged(MouseEvent e){}; 

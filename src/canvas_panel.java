@@ -18,11 +18,13 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	public static ArrayList<BasicObject> all_objs_in_canvas = new ArrayList<BasicObject>();
 	public static ArrayList<ObjectsContainer> chosen_groups =  new ArrayList<ObjectsContainer>();
 	public static ArrayList<Integer> chosen_group_idx = new ArrayList<Integer>();
+	public static ArrayList<line> all_lines = new ArrayList<line>();
 	private mode user_mode = new mode_no_action();
 	private mode_mouse mouse;
 	private mode_no_action no_action;
 	private mode_class class_;
 	private mode_use_case use_case;
+	private mode_association_line association_line;
 	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
@@ -46,8 +48,9 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		 user_mode.mousePressed(event);
 	 }
 	 public void mouseEntered(MouseEvent event) {
-		 this.mouse = new mode_mouse(this);
 		 this.no_action= new mode_no_action();
+		 this.mouse = new mode_mouse(this);
+		 this.association_line= new mode_association_line();
 		 this.class_= new mode_class(this);
 		 this.use_case= new mode_use_case(this);
 	 }
@@ -72,14 +75,18 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	 private void get_mode(int mode_type,MouseEvent event,canvas_panel canvas)
 	 {
 		 if(event.getButton()== MouseEvent.BUTTON1)
+
 		 switch(mode_type) {
 		 	case -1:
 		 		user_mode = no_action;
-		 		
+		 		Parameters.Button.mouse.ordinal();
 		 		break;
 		 	case 0:
 		 		user_mode = mouse;
 		 		
+		 		break;
+		 	case 1:
+		 		user_mode = association_line;
 		 		break;
 		 	case 4:
 		 		user_mode = class_;
@@ -104,8 +111,23 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	   	  user_mode.getMode() == Parameters.Button.mouse.ordinal()) {
 	   	  drawRect(g);
          }
+	     if(all_lines.size()!=0) {
+	    	 System.out.println("Hi");
+	    	 drawLine(g);
+	     }
 	   }
-	 
+	 public void drawLine(Graphics g) {
+		 g.setColor(Color.BLACK);
+		 for(int idx =0; idx <all_lines.size(); idx++) {
+			 System.out.println(this.all_lines.get(idx).start_p);
+	    	 System.out.println(this.all_lines.get(idx).end_p);
+			 g.drawLine(this.all_lines.get(idx).start_p.x, this.all_lines.get(idx).start_p.y,
+					 	this.all_lines.get(idx).end_p.x, this.all_lines.get(idx).end_p.y); 
+		 }
+	 } 
+	 public static void draw_line(Point line_start, Point line_end) {
+		 
+	 }
 	 public void drawRect(Graphics g)
 	 {
          g.setColor(Color.BLACK);

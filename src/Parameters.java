@@ -16,14 +16,22 @@ public class Parameters {
 		    "class.png",
 		    "usecase.png"
 		};
+
+	public static int undefined = -1;
 	public static Point temp_for_mode_mouse_m_start = new Point(0,0);
 	public static ArrayList<ObjectsContainer> tmp_array_of_groups = new ArrayList<ObjectsContainer>();
 	public static ArrayList<BasicObject> tmp_all_objs_in_canvas = new ArrayList<BasicObject>();
 	public static ArrayList<ObjectsContainer> tmp_chosen_groups =  new ArrayList<ObjectsContainer>();
 	public static ArrayList<Integer> tmp_chosen_group_idx = new ArrayList<Integer>();
 	public static int subtract_one_for_right_index = 1;
-	public static int nonGroup = -1;
-	public static int Button_no_action = -1;
+	public static int nonGroup = undefined;
+	public static int Button_no_action = undefined;
+	public static int no_obj = undefined;
+	public static int line_start_group_idx = undefined;
+	public static int line_end_group_idx = undefined;
+	public static int line_start_obj_idx = undefined;
+	public static int line_end_obj_idx = undefined;
+	
 	public enum Button {
 		mouse,
 		association_line,

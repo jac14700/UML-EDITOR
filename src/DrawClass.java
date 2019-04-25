@@ -10,8 +10,7 @@ public class DrawClass extends BasicObject{
 	DrawClass(Point start){
 		super(start);
 		this.size = size_of_class;
-		this.center.x = this.start.x + this.size.width/2;
-		this.center.y = this.start.y + this.size.height/2;
+		init_obj_points_parameters();
 		this.main_label.mode = Parameters.Button.draw_class.ordinal();
 		this.main_label.setOpaque(true);
 		this.main_label.setBackground(Color.orange);
@@ -27,5 +26,19 @@ public class DrawClass extends BasicObject{
 	    this.size = size_of_class;
 	    this.main_label.setSize(size);
 	    this.end = new Point(this.start.x + this.size.width, this.start.y + this.size.width);
+	}
+	private void init_obj_points_parameters() {
+		this.end.x = this.start.x + this.size.width;
+		this.end.y = this.start.y + this.size.height;
+		this.center.x = this.start.x + this.size.width/2;
+		this.center.y = this.start.y + this.size.height/2;
+		this.port_up.x = this.center.x;
+		this.port_up.y = this.start.y;
+		this.port_down.x = this.center.x;
+		this.port_down.y = this.end.y;
+		this.port_left.x = this.start.x;
+		this.port_left.y = this.center.y;
+		this.port_down.x = this.center.x;
+		this.port_down.y = this.end.y;
 	}
 }

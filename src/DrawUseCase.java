@@ -21,14 +21,11 @@ public class DrawUseCase extends BasicObject{
 	DrawUseCase(Point start){
 		super(start);
 		this.size = size_of_use_case;
-		this.center.x = this.start.x + this.size.width/2;
-		this.center.y = this.start.y + this.size.height/2;
+		init_obj_points_parameters();
 		this.main_label.mode = Parameters.Button.user_case.ordinal();
 		this.main_label.setOpaque(false);
 		this.main_label.setLocation(this.start.x,this.start.y);
 		this.main_label.setLayout(new GridBagLayout());
-		//BufferedImage img = ImageIO.read(new File(Parameters.file_name_of_oval));
-		//this.main_label.setIcon(new ImageIcon(img));
 		
 	    GridBagConstraints gbc = new GridBagConstraints();
 	    gbc.anchor = GridBagConstraints.CENTER;
@@ -39,5 +36,20 @@ public class DrawUseCase extends BasicObject{
 	    this.main_label.add(message, gbc);
 	    this.main_label.setSize(size);
 	    this.end = new Point(this.start.x + this.size.width, this.start.y + this.size.width);
+	}
+	
+	private void init_obj_points_parameters() {
+		this.end.x = this.start.x + this.size.width;
+		this.end.y = this.start.y + this.size.height;
+		this.center.x = this.start.x + this.size.width/2;
+		this.center.y = this.start.y + this.size.height/2;
+		this.port_up.x = this.center.x;
+		this.port_up.y = this.start.y;
+		this.port_down.x = this.center.x;
+		this.port_down.y = this.end.y;
+		this.port_left.x = this.start.x;
+		this.port_left.y = this.center.y;
+		this.port_down.x = this.center.x;
+		this.port_down.y = this.end.y;
 	}
 }

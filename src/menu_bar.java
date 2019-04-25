@@ -37,12 +37,13 @@ public class menu_bar  implements MenuListener{
 				for(int g_index=0; g_index< canvas_panel.array_of_groups.size();g_index++) {
 					if(group_chosen(g_index)){continue;}
 					else {
-					tmp_container.add(canvas_panel.array_of_groups.get(g_index));}
+						tmp_container.add(canvas_panel.array_of_groups.get(g_index));
+					}
 				}
 				canvas_panel.array_of_groups.clear();
-				canvas_panel.array_of_groups.add(Grouping);
-				canvas_panel.array_of_groups.get(0).it_is_a_BasicObject = false;
 				canvas_panel.array_of_groups.addAll(tmp_container.all_input);
+				canvas_panel.array_of_groups.add(Grouping);
+				canvas_panel.array_of_groups.get(canvas_panel.array_of_groups.size()- Parameters.subtract_one_for_right_index).it_is_a_BasicObject = false;
 				updata_every_obj_its_group_id();
 			};
 		 });
@@ -53,7 +54,6 @@ public class menu_bar  implements MenuListener{
 		{
 			int tmp_obj_array_size = canvas_panel.array_of_groups.get(g_index).current_objs.size();
 			for(int o_index = 0; o_index < tmp_obj_array_size; o_index++) {
-				
 				canvas_panel.array_of_groups.get(g_index).current_objs.get(o_index).idx_in_array_of_groups = g_index;
 			}
 		}

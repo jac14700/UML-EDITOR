@@ -16,6 +16,7 @@ public class mode_use_case extends JPanel  implements mode {
 	public void mouseEntered(MouseEvent arg0) {}
 	public void mousePressed(MouseEvent arg0) {
 		BasicObject tmp_obj = new DrawUseCase(arg0.getPoint());
+		tmp_obj.update_end_center_point();
 		ObjectsContainer tmp_container = new ObjectsContainer(tmp_obj);
 		
 		canvas_panel.array_of_groups.add(tmp_container);
@@ -29,6 +30,7 @@ public class mode_use_case extends JPanel  implements mode {
 	
 	public void Set_group_index_for_the_obj(int idx) {
 		canvas_panel.array_of_groups.get(idx).current_objs.get(0).idx_in_array_of_groups = idx;
+		canvas_panel.array_of_groups.get(idx).current_objs.get(0).idx_in_current_objs = 0;
 	}
 	public void mouseReleased(MouseEvent arg0) {}
 	public void mouseDragged(MouseEvent e) {}

@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,32 +10,43 @@ import javax.swing.JPanel;
 class BasicObject extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public Point start,end ,center;
+	public static Point port_up, port_down, port_left, port_right;
 	public Main_Label main_label = new Main_Label();
 	protected JLabel message= new JLabel();
-	protected Dimension size;
+	protected Dimension size = new Dimension(100,100);
 	protected int idx_in_array_of_groups = Parameters.nonGroup;
+	protected int idx_in_current_objs = Parameters.nonGroup;
+	public ArrayList<Integer> connected_as_start, connect_as_end;
+	
 	BasicObject(){
-	 init();
+		init();
 	}
 	BasicObject(Point start){
 		init(start);
 	}
-	protected void init()
-	{
+	
+	
+	private void init(){
 		add_mouse_listener_to_main_label(this);
 	}
-	protected void init(Point start)
-	{
+	private void init(Point start){
+		init_points(start);
+		add_mouse_listener_to_main_label(this);
+	}
+	private void init_points(Point start) {
 		this.start = start;
-		this.center = new Point();
-		
-		add_mouse_listener_to_main_label(this);
+		this.center = new Point(this.start.x +this.size.width/2, this.start.y +this.size.height/2);
+		this.end = new Point(this.start.x +this.size.width, this.start.y +this.size.height);
+		this.port_up = new Point(this.center.x,this.start.y);
+		this.port_down = new Point(this.center.x,this.end.y);
+		this.port_left = new Point(this.start.x,this.center.y);
+		this.port_right = new Point(this.end.x,this.center.y);
 	}
+	
 	public void update_end_center_point() {
 		this.end.x = this.start.x +this.size.width;
 		this.end.y = this.start.y +this.size.height;
-		this.center.x = this.start.x + this.size.width/2;
-		this.center.y = this.start.y + this.size.height/2;
+		
 	}
 	public void move(Point move_p) {
 		this.start.x = this.start.x + move_p.x;
@@ -49,16 +61,29 @@ class BasicObject extends JPanel{
 			private Point m_end = new Point(0,0);
 			public void mouseClicked(MouseEvent event){}
 			public void mouseExited(MouseEvent event){}
-			public void mouseEntered(MouseEvent event){}
-			public void mousePressed(MouseEvent event){
-				
+			public void mouseEntered(MouseEvent event){
+				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()
+					&&mode_association_line.dragged
+					) {
+					mode_association_line.entered_a_obj = true;
+					buffering_line_end_obj();
+				}
+			}
+			public void mouseDragged(MouseEvent event) {}
+			public void mousePressed(MouseEvent event) {
 				m_start = get_real_location(event.getPoint());
-				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal())
-				{
+				mode_association_line.start_g_idx_in_array_of_groups = BasicObject.this.idx_in_array_of_groups;
+				
+				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal()){
 					canvas_panel.unselect_all_obj();
 					System.out.println("this obj belong to " + idx_in_array_of_groups + "group.");
+					System.out.println("this obj is the " + idx_in_current_objs+ " obj in this group.");
 					select_the_entire_group();
                 }
+				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()) {
+					mode_association_line.dragged = true;
+					buffering_line_start_obj();
+				}
 			}
 			
 			public void mouseReleased(MouseEvent event) {
@@ -66,6 +91,30 @@ class BasicObject extends JPanel{
 					m_end = get_real_location(event.getPoint());
 					move_the_entire_chosen_group(m_start,m_end);
 				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()&&
+				   mode_association_line.dragged&&
+				   mode_association_line.entered_a_obj) {
+				   canvas_panel.all_lines.add(new line());
+				}
+				mode_association_line.dragged = false;
+			}
+			
+			
+			private void buffering_line_start_obj() {
+				/*System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println("buffering_line_start_obj" + BasicObject.this.idx_in_array_of_groups);*/
+				Parameters.line_start_group_idx = BasicObject.this.idx_in_array_of_groups;
+				Parameters.line_start_obj_idx = BasicObject.this.idx_in_current_objs;
+			}
+			private void buffering_line_end_obj() {
+				/*System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println("buffering_line_end_obj" + BasicObject.this.idx_in_array_of_groups);*/
+				Parameters.line_end_group_idx = BasicObject.this.idx_in_array_of_groups;
+				Parameters.line_end_obj_idx = BasicObject.this.idx_in_current_objs;
 			}
 			private void up_date_obj_points(Point pressed_p, Point released_p, int chosen_g_idx_of_array_groups, int obj_index, int g_index) {
 				Point move = new Point(released_p.x - pressed_p.x,released_p.y - pressed_p.y);
