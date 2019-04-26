@@ -27,8 +27,6 @@ public class Parameters {
 	public static int nonGroup = undefined;
 	public static int Button_no_action = undefined;
 	public static int no_obj = undefined;
-	public static int line_start_group_idx = undefined;
-	public static int line_end_group_idx = undefined;
 	public static int line_start_obj_idx = undefined;
 	public static int line_end_obj_idx = undefined;
 	public static int association_line = 0;

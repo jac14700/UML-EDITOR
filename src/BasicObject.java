@@ -2,21 +2,19 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 class BasicObject extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public Point start,end ,center;
-	public static Point port_up, port_down, port_left, port_right;
+	public Point port_up, port_down, port_left, port_right;
 	public Main_Label main_label = new Main_Label();
 	protected JLabel message= new JLabel();
 	protected Dimension size = new Dimension(100,100);
 	protected int idx_in_array_of_groups = Parameters.nonGroup;
 	protected int idx_in_current_objs = Parameters.nonGroup;
-	public ArrayList<Integer> connected_as_start, connect_as_end;
+	protected int idx_in_all_objs_in_canvas = Parameters.nonGroup;
 	
 	BasicObject(){
 		init();
@@ -52,12 +50,12 @@ class BasicObject extends JPanel{
 		this.start.x = this.start.x + move_p.x;
 		this.start.y = this.start.y + move_p.y;
 		update_end_center_point();
-		update_line_start_end_point(this.idx_in_array_of_groups,this.idx_in_current_objs,this.start);
+		update_line_start_end_point(this.idx_in_all_objs_in_canvas,this.start);
 	}
 	
 	
-	private void update_line_start_end_point(int g_idx, int obj_idx, Point new_s) {
-		line.move(g_idx, obj_idx, new_s);
+	private void update_line_start_end_point(int obj_idx, Point new_s) {
+		line.move( obj_idx, new_s);
 	}
 	protected void add_mouse_listener_to_main_label (BasicObject obj) {
 		this.main_label.addMouseListener(
@@ -100,8 +98,6 @@ class BasicObject extends JPanel{
 				
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal()){
 					canvas_panel.unselect_all_obj();
-					System.out.println("this obj belong to " + idx_in_array_of_groups + "group.");
-					System.out.println("this obj is the " + idx_in_current_objs+ " obj in this group.");
 					select_the_entire_group();
                 }
 				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()) {
@@ -142,15 +138,15 @@ class BasicObject extends JPanel{
 					repaint();
 				}
 				mode_association_line.dragged = false;
+				mode_gerneralization_line.dragged = false;
+				mode_composition_line.dragged = false;
 			}
 			
 					private void buffering_line_start_obj() {
-						Parameters.line_start_group_idx = BasicObject.this.idx_in_array_of_groups;
-						Parameters.line_start_obj_idx = BasicObject.this.idx_in_current_objs;
+						Parameters.line_start_obj_idx = BasicObject.this.idx_in_all_objs_in_canvas;
 					}
 					private void buffering_line_end_obj() {
-						Parameters.line_end_group_idx = BasicObject.this.idx_in_array_of_groups;
-						Parameters.line_end_obj_idx = BasicObject.this.idx_in_current_objs;
+						Parameters.line_end_obj_idx = BasicObject.this.idx_in_all_objs_in_canvas;
 					}
 					private void up_date_obj_points(Point pressed_p, Point released_p, int chosen_g_idx_of_array_groups, int obj_index, int g_index) {
 						Point move = new Point(released_p.x - pressed_p.x,released_p.y - pressed_p.y);
@@ -168,6 +164,10 @@ class BasicObject extends JPanel{
 						return point_i;
 					}
 					private void move_the_entire_chosen_group(Point pressed_p, Point released_p) {
+						adjusting_objs(pressed_p,released_p);
+						adjusting_connected_line();
+					}
+					private void adjusting_objs(Point pressed_p, Point released_p) {
 						for(int g_index =0; g_index < canvas_panel.chosen_group_idx.size(); g_index++) {
 							int chosen_g_idx_of_array_groups = canvas_panel.chosen_group_idx.get(g_index);
 							for(int obj_index =0;obj_index <canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
@@ -176,6 +176,9 @@ class BasicObject extends JPanel{
 																																	canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.y);
 							}
 						}
+					}
+					private void adjusting_connected_line() {
+						
 					}
 		});
 	}
