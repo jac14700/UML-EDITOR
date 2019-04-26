@@ -1,8 +1,7 @@
 import java.awt.event.MouseEvent;
-
 import javax.swing.JPanel;
 
-public class mode_association_line extends JPanel  implements mode {
+public class mode_gerneralization_line extends JPanel  implements mode {
 	private static final long serialVersionUID = 1L;
 	public static Boolean dragged = false, entered_a_obj = false; 
 	public static int start_g_idx_in_array_of_groups = Parameters.no_obj;

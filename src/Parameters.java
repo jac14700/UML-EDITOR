@@ -31,6 +31,13 @@ public class Parameters {
 	public static int line_end_group_idx = undefined;
 	public static int line_start_obj_idx = undefined;
 	public static int line_end_obj_idx = undefined;
+	public static int association_line = 0;
+	public static int gerneralization_line = 1;
+	public static int composition_line = 2;
+	public static int up_port = 0;
+	public static int left_port = 1;
+	public static int right_port = 2;
+	public static int down_port = 3;
 	
 	public enum Button {
 		mouse,

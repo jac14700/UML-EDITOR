@@ -52,6 +52,12 @@ class BasicObject extends JPanel{
 		this.start.x = this.start.x + move_p.x;
 		this.start.y = this.start.y + move_p.y;
 		update_end_center_point();
+		update_line_start_end_point(this.idx_in_array_of_groups,this.idx_in_current_objs,this.start);
+	}
+	
+	
+	private void update_line_start_end_point(int g_idx, int obj_idx, Point new_s) {
+		line.move(g_idx, obj_idx, new_s);
 	}
 	protected void add_mouse_listener_to_main_label (BasicObject obj) {
 		this.main_label.addMouseListener(
@@ -60,19 +66,37 @@ class BasicObject extends JPanel{
 			private Point m_start = new Point(0,0);
 			private Point m_end = new Point(0,0);
 			public void mouseClicked(MouseEvent event){}
-			public void mouseExited(MouseEvent event){}
+			public void mouseExited(MouseEvent event){
+				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()){
+					mode_association_line.entered_a_obj = false;
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.gerneralization_line.ordinal()){
+					mode_gerneralization_line.entered_a_obj = false;
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.composition_line.ordinal()){
+					mode_composition_line.entered_a_obj = false;
+				}
+			}
 			public void mouseEntered(MouseEvent event){
 				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()
-					&&mode_association_line.dragged
-					) {
+					&&mode_association_line.dragged){
 					mode_association_line.entered_a_obj = true;
+					buffering_line_end_obj();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.gerneralization_line.ordinal()
+					&&mode_gerneralization_line.dragged){
+					mode_gerneralization_line.entered_a_obj = true;
+					buffering_line_end_obj();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.composition_line.ordinal()
+					&&mode_composition_line.dragged){
+					mode_composition_line.entered_a_obj = true;
 					buffering_line_end_obj();
 				}
 			}
 			public void mouseDragged(MouseEvent event) {}
 			public void mousePressed(MouseEvent event) {
 				m_start = get_real_location(event.getPoint());
-				mode_association_line.start_g_idx_in_array_of_groups = BasicObject.this.idx_in_array_of_groups;
 				
 				if(buttons.idx_which_is_chosen == Parameters.Button.mouse.ordinal()){
 					canvas_panel.unselect_all_obj();
@@ -82,6 +106,14 @@ class BasicObject extends JPanel{
                 }
 				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()) {
 					mode_association_line.dragged = true;
+					buffering_line_start_obj();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.gerneralization_line.ordinal()) {
+					mode_gerneralization_line.dragged = true;
+					buffering_line_start_obj();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.composition_line.ordinal()) {
+					mode_composition_line.dragged = true;
 					buffering_line_start_obj();
 				}
 			}
@@ -94,53 +126,57 @@ class BasicObject extends JPanel{
 				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()&&
 				   mode_association_line.dragged&&
 				   mode_association_line.entered_a_obj) {
-				   canvas_panel.all_lines.add(new line());
+				   canvas_panel.all_lines.add(new line(Parameters.association_line));
+					repaint();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.gerneralization_line.ordinal()&&
+  				   mode_gerneralization_line.dragged&&
+  				   mode_gerneralization_line.entered_a_obj) {
+				   canvas_panel.all_lines.add(new line(Parameters.gerneralization_line));
+					repaint();
+				}
+				if(buttons.idx_which_is_chosen == Parameters.Button.composition_line.ordinal()&&
+				   mode_composition_line.dragged&&
+				   mode_composition_line.entered_a_obj) {
+				   canvas_panel.all_lines.add(new line(Parameters.composition_line));
+					repaint();
 				}
 				mode_association_line.dragged = false;
 			}
 			
-			
-			private void buffering_line_start_obj() {
-				/*System.out.println();
-				System.out.println();
-				System.out.println();
-				System.out.println("buffering_line_start_obj" + BasicObject.this.idx_in_array_of_groups);*/
-				Parameters.line_start_group_idx = BasicObject.this.idx_in_array_of_groups;
-				Parameters.line_start_obj_idx = BasicObject.this.idx_in_current_objs;
-			}
-			private void buffering_line_end_obj() {
-				/*System.out.println();
-				System.out.println();
-				System.out.println();
-				System.out.println("buffering_line_end_obj" + BasicObject.this.idx_in_array_of_groups);*/
-				Parameters.line_end_group_idx = BasicObject.this.idx_in_array_of_groups;
-				Parameters.line_end_obj_idx = BasicObject.this.idx_in_current_objs;
-			}
-			private void up_date_obj_points(Point pressed_p, Point released_p, int chosen_g_idx_of_array_groups, int obj_index, int g_index) {
-				Point move = new Point(released_p.x - pressed_p.x,released_p.y - pressed_p.y);
-				Point obj_start = canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start;
-				Dimension obj_size = canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).size;
-				adjust_array_of_groups_points_stuffs(chosen_g_idx_of_array_groups,obj_index, move, obj_start, obj_size);
-			}
-		
-			private void adjust_array_of_groups_points_stuffs(int chosen_g_idx_of_array_groups, int obj_index, Point move, Point obj_start, Dimension obj_size) {
-				canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).move(move);
-			}
-			private Point get_real_location(Point point_i) {
-				point_i.x = BasicObject.this.start.x + point_i.x;
-				point_i.y = BasicObject.this.start.y + point_i.y;
-				return point_i;
-			}
-			private void move_the_entire_chosen_group(Point pressed_p, Point released_p) {
-				for(int g_index =0; g_index < canvas_panel.chosen_group_idx.size(); g_index++) {
-					int chosen_g_idx_of_array_groups = canvas_panel.chosen_group_idx.get(g_index);
-					for(int obj_index =0;obj_index <canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
-						up_date_obj_points(m_start,m_end,chosen_g_idx_of_array_groups,obj_index,g_index);
-						canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).main_label.setLocation(canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.x,
-																															canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.y);
+					private void buffering_line_start_obj() {
+						Parameters.line_start_group_idx = BasicObject.this.idx_in_array_of_groups;
+						Parameters.line_start_obj_idx = BasicObject.this.idx_in_current_objs;
 					}
-				}
-			}
+					private void buffering_line_end_obj() {
+						Parameters.line_end_group_idx = BasicObject.this.idx_in_array_of_groups;
+						Parameters.line_end_obj_idx = BasicObject.this.idx_in_current_objs;
+					}
+					private void up_date_obj_points(Point pressed_p, Point released_p, int chosen_g_idx_of_array_groups, int obj_index, int g_index) {
+						Point move = new Point(released_p.x - pressed_p.x,released_p.y - pressed_p.y);
+						Point obj_start = canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start;
+						
+						adjust_array_of_groups_points_stuffs(chosen_g_idx_of_array_groups, obj_index, move, obj_start);
+					}
+				
+					private void adjust_array_of_groups_points_stuffs(int chosen_g_idx_of_array_groups, int obj_index, Point move, Point obj_start) {
+						canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).move(move);
+					}
+					private Point get_real_location(Point point_i) {
+						point_i.x = BasicObject.this.start.x + point_i.x;
+						point_i.y = BasicObject.this.start.y + point_i.y;
+						return point_i;
+					}
+					private void move_the_entire_chosen_group(Point pressed_p, Point released_p) {
+						for(int g_index =0; g_index < canvas_panel.chosen_group_idx.size(); g_index++) {
+							int chosen_g_idx_of_array_groups = canvas_panel.chosen_group_idx.get(g_index);
+							for(int obj_index =0;obj_index <canvas_panel.chosen_groups.get(g_index).current_objs.size(); obj_index++) {
+								up_date_obj_points(m_start,m_end,chosen_g_idx_of_array_groups,obj_index,g_index);
+								canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).main_label.setLocation(canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.x,
+																																	canvas_panel.array_of_groups.get(chosen_g_idx_of_array_groups).current_objs.get(obj_index).start.y);
+							}
+						}
+					}
 		});
 	}
 	

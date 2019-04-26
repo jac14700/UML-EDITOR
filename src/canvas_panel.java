@@ -25,6 +25,9 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	private mode_class class_;
 	private mode_use_case use_case;
 	private mode_association_line association_line;
+	private mode_gerneralization_line gerneralization_line;
+	private mode_composition_line composition_line;
+	
 	
 	canvas_panel(int frame_w,int frame_h) {
 		init_every_setting(frame_w,frame_h);
@@ -48,11 +51,15 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		 user_mode.mousePressed(event);
 	 }
 	 public void mouseEntered(MouseEvent event) {
+		repaint();
 		 this.no_action= new mode_no_action();
 		 this.mouse = new mode_mouse(this);
 		 this.association_line= new mode_association_line();
 		 this.class_= new mode_class(this);
 		 this.use_case= new mode_use_case(this);
+		 this.gerneralization_line = new mode_gerneralization_line();
+		 this.composition_line = new mode_composition_line();
+		 
 	 }
 	 public void mouseReleased(MouseEvent event) {
 		 this.pointStart = null;
@@ -83,10 +90,15 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 		 		break;
 		 	case 0:
 		 		user_mode = mouse;
-		 		
 		 		break;
 		 	case 1:
 		 		user_mode = association_line;
+		 		break;
+		 	case 2:
+		 		user_mode = gerneralization_line;
+		 		break;
+		 	case 3:
+		 		user_mode = composition_line;
 		 		break;
 		 	case 4:
 		 		user_mode = class_;
@@ -112,19 +124,72 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	   	  drawRect(g);
          }
 	     if(all_lines.size()!=0) {
-	    	 System.out.println("Hi");
 	    	 drawLine(g);
 	     }
 	   }
 	 public void drawLine(Graphics g) {
 		 g.setColor(Color.BLACK);
 		 for(int idx =0; idx <all_lines.size(); idx++) {
-			 System.out.println(this.all_lines.get(idx).start_p);
-	    	 System.out.println(this.all_lines.get(idx).end_p);
 			 g.drawLine(this.all_lines.get(idx).start_p.x, this.all_lines.get(idx).start_p.y,
 					 	this.all_lines.get(idx).end_p.x, this.all_lines.get(idx).end_p.y); 
+			 if(all_lines.get(idx).line_type == Parameters.association_line) {
+				 continue;}
+			 if(all_lines.get(idx).line_type == Parameters.gerneralization_line) {
+				 to_draw_arrow(g,idx,all_lines.get(idx).start_port_type);
+				 continue;
+			 }if(all_lines.get(idx).line_type == Parameters.composition_line) {
+				 g.fillOval(all_lines.get(idx).start_p.x, all_lines.get(idx).start_p.y, 5, 5);
+				 continue;
+			 }
 		 }
 	 } 
+	 public void to_draw_arrow(Graphics g,int idx, int start_port_type) {
+		 int x_change =7,y_change =7;
+		 switch(start_port_type) {
+		 	case 0://¤W
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+			 				this.all_lines.get(idx).start_p.y,
+			 				this.all_lines.get(idx).start_p.x -x_change,
+			 				this.all_lines.get(idx).start_p.y -y_change);
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+			 				this.all_lines.get(idx).start_p.y,
+			 				this.all_lines.get(idx).start_p.x +x_change,
+			 				this.all_lines.get(idx).start_p.y -y_change);
+		 		break;
+		 	case 1://¥ª
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x -x_change,
+		 				this.all_lines.get(idx).start_p.y -y_change);
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x -x_change,
+		 				this.all_lines.get(idx).start_p.y +y_change);
+		 		
+		 		break;
+		 	case 2://¥k
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x +x_change,
+		 				this.all_lines.get(idx).start_p.y -y_change);
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x +x_change,
+		 				this.all_lines.get(idx).start_p.y +y_change);
+		 		
+		 		break;
+		 	case 3://¤U
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x -x_change,
+		 				this.all_lines.get(idx).start_p.y +y_change);
+		 		g.drawLine(this.all_lines.get(idx).start_p.x,
+		 				this.all_lines.get(idx).start_p.y,
+		 				this.all_lines.get(idx).start_p.x +x_change,
+		 				this.all_lines.get(idx).start_p.y +y_change);
+		 		break;
+		 }
+	 }
 	 public static void draw_line(Point line_start, Point line_end) {
 		 
 	 }
