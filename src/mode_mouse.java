@@ -4,8 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public class mode_mouse extends JPanel  implements mode {
-	private static final long serialVersionUID = 1L;
+public class mode_mouse extends mode {
 	private int mode = Parameters.Button.mouse.ordinal();
 	public Point m_start, m_end = new Point(0,0);
 	Graphics g;

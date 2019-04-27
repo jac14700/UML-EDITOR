@@ -1,6 +1,6 @@
 import java.awt.event.MouseEvent;
 
-public class mode_no_action implements mode {
+public class mode_no_action extends mode {
 	private int mode_type = Parameters.Button_no_action;
 	public mode_no_action(){
 	}

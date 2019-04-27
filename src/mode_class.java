@@ -1,6 +1,6 @@
 import java.awt.event.MouseEvent;
 
-public class mode_class implements mode {
+public class mode_class extends mode {
 	private int mode_type =  Parameters.Button.draw_class.ordinal();
 	private canvas_panel canvas;
 	

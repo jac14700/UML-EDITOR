@@ -1,10 +1,7 @@
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-import javax.swing.JPanel;
 
-public class mode_use_case extends JPanel  implements mode {
-	private static final long serialVersionUID = 1L;
+public class mode_use_case extends mode {
 	private int mode_type =  Parameters.Button.user_case.ordinal();
 	private canvas_panel canvas;
 	

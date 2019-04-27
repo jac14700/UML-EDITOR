@@ -19,7 +19,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	public static ArrayList<ObjectsContainer> chosen_groups =  new ArrayList<ObjectsContainer>();
 	public static ArrayList<Integer> chosen_group_idx = new ArrayList<Integer>();
 	public static ArrayList<line> all_lines = new ArrayList<line>();
-	private mode user_mode = new mode_no_action();
+	public static mode user_mode = new mode_no_action();
 	private mode_mouse mouse;
 	private mode_no_action no_action;
 	private mode_class class_;
@@ -81,7 +81,7 @@ public class canvas_panel extends JPanel_Listener_MotionListener_Mouse {
 	 
 	 private void get_mode(int mode_type,MouseEvent event,canvas_panel canvas)
 	 {
-		 if(event.getButton()== MouseEvent.BUTTON1)
+		 if(event.getButton() == MouseEvent.BUTTON1)
 
 		 switch(mode_type) {
 		 	case -1:

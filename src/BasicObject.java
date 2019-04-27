@@ -41,22 +41,18 @@ class BasicObject extends JPanel{
 		this.port_right = new Point(this.end.x,this.center.y);
 	}
 	
-	public void update_end_center_point() {
-		this.end.x = this.start.x +this.size.width;
-		this.end.y = this.start.y +this.size.height;
-		
-	}
 	public void move(Point move_p) {
 		this.start.x = this.start.x + move_p.x;
 		this.start.y = this.start.y + move_p.y;
-		update_end_center_point();
+		this.end.x = this.start.x +this.size.width;
+		this.end.y = this.start.y +this.size.height;
 		update_line_start_end_point(this.idx_in_all_objs_in_canvas,this.start);
 	}
 	
-	
 	private void update_line_start_end_point(int obj_idx, Point new_s) {
-		line.move( obj_idx, new_s);
+		line.move( obj_idx, new_s);	
 	}
+	
 	protected void add_mouse_listener_to_main_label (BasicObject obj) {
 		this.main_label.addMouseListener(
 		new MouseListener() {
@@ -65,10 +61,10 @@ class BasicObject extends JPanel{
 			private Point m_end = new Point(0,0);
 			public void mouseClicked(MouseEvent event){}
 			public void mouseExited(MouseEvent event){
-				if(buttons.idx_which_is_chosen == Parameters.Button.association_line.ordinal()){
+				if(canvas_panel.user_mode.getMode() == Parameters.Button.association_line.ordinal()){
 					mode_association_line.entered_a_obj = false;
 				}
-				if(buttons.idx_which_is_chosen == Parameters.Button.gerneralization_line.ordinal()){
+				if(canvas_panel.user_mode.getMode() == Parameters.Button.gerneralization_line.ordinal()){
 					mode_gerneralization_line.entered_a_obj = false;
 				}
 				if(buttons.idx_which_is_chosen == Parameters.Button.composition_line.ordinal()){
